@@ -24,24 +24,23 @@ describe('Pantry', ( ) => {
         } );
         
     it( 'should be a function', ( ) => {
-    // console.log('pantry1: ', pantry1)
-    expect( Pantry ).to.be.a( 'function' );
+        expect( Pantry ).to.be.a( 'function' );
     } );
-
+    
     it( 'should be an instance of Pantry', ( ) => {
         expect( pantry1 ).to.be.an.instanceOf( Pantry )
     } );
-
+    
     it( 'should take in a user\'s PANTRY ingredients', ( ) => {
-        expect( user1.pantry ).to.equal( usersData[0].pantry )
+        expect( pantry1.currentUsersPantry ).to.deep.equal( usersData[0].pantry )
     } );
-
+    
     it( 'should take in a list of INGREDIENTS', ( ) => {
-        expect( ingredients1.id ).to.equal( ingredientsData )
+        expect( pantry1.ingredientsList.id ).to.equal( ingredientsData )
     } );
-
+    
     it( 'should take in a list of RECIPE ingredients', ( ) => {
-        console.log('recipeData[0] in TEST: ', recipeData[0])
-        expect( recipe1.recipeIngredients ).to.equal( recipeData[0].ingredients )
+        console.log('RECIPEDATA[0]: ', recipeData[0].ingredients)
+        expect( pantry1.recipeIngredients ).to.equal( recipeData[0].ingredients )
     } );
 } );

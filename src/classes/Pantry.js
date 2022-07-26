@@ -1,8 +1,8 @@
 class Pantry {
     constructor( pantryData, ingredientsData, recipesData ) {
-        this.currentUsersPantry = pantryData
+        this.currentUsersPantry = pantryData.pantry
         this.ingredientsList = ingredientsData;
-        this.recipeIngredients = recipesData;
+        this.recipeIngredients = recipesData.recipeIngredients;
     };
 
 // Determine whether a user’s pantry has enough ingredients to cook a given recipe.
