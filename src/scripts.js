@@ -37,6 +37,7 @@ let welcomeUserMessage = document.getElementById( 'welcomeUserMessage' );
 let recipeContainer = document.querySelector( '.recipe-grid-container' );
 let recipeCardGridContainer = document.getElementById( "gridContainer" );
 let navViewProfileButton = document.querySelector( '.view-profile-button' );
+let searchInput = document.getElementById("searchInput");
 
 
 // EVENT LISTENERS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -68,6 +69,13 @@ closeModalButton.addEventListener( 'click', ( ) => {
     MicroModal.close( 'recipeModal' );
     overlay.classList.remove( 'active' );
 } );
+
+searchInput.addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document.getElementById("search").click();
+  }
+});
 
 
 // DOM MANIPULATION <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

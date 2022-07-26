@@ -1,4 +1,5 @@
 * {
+  border: aqua 3px solid;
   font-family: Trebuchet, sans-serif;
 }
 
@@ -54,12 +55,18 @@ h5 {
 
 input {
   align-self: flex-end;
-  height: 3vh;
-  overflow: hidden;
+  flex-wrap: wrap;
+  height: 30px;
+  overflow: visible;
   text-align: center;
   text-overflow: ellipsis;
-  width: 20%;
+  width: 40px;
   white-space: nowrap;
+}
+
+input:focus{
+  width: 100%;
+  height: 100%;
 }
 
 button {
@@ -69,6 +76,8 @@ button {
   box-shadow: 0 1px 2px rgba( 0, 0, 0 );
   color: rgba( 0, 0, 0, 0.9 );
   margin-top: 2%;
+  contain: content;
+  text-overflow: contain;
 }
 
 button:hover{

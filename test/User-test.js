@@ -56,27 +56,27 @@ describe('User', ( ) => {
   } ); 
 
   it( 'should be able to save a recipe in recipesToCook array', ( ) => {
-    user1.addRecipeToRecipesToCook( usersData[0] );
+    user1.addRecipeToRecipesToCook( recipeData[0] );
     expect( user1.recipesToCook.length ).to.deep.equal( 1 );
     expect( user1.recipesToCook ).to.be.a( "array" );
-    expect( user1.recipesToCook ).to.deep.equal( [ usersData[0] ] );
+    expect( user1.recipesToCook ).to.deep.equal( [ recipeData[0] ] );
 
-    user2.addRecipeToRecipesToCook( usersData[1] );
+    user2.addRecipeToRecipesToCook( recipeData[1] );
     expect( user2.recipesToCook.length ).to.deep.equal( 1 );
     expect( user2.recipesToCook ).to.be.a( "array" );
-    expect( user2.recipesToCook ).to.deep.equal( [ usersData[1] ] );
+    expect( user2.recipesToCook ).to.deep.equal( [ recipeData[1] ] );
   } );
 
   it( 'should remove a saved recipes from recipesToCook array', ( ) => {
-    user1.addRecipeToRecipesToCook( usersData[0] );
-    user1.removeRecipeFromRecipesToCook( usersData[0] );
+    user1.addRecipeToRecipesToCook( recipeData[0] );
+    user1.removeRecipeFromRecipesToCook( recipeData[0].id );
     expect( user1.recipesToCook ).to.be.a( "array" );
-    expect( user1.recipesToCook ).to.deep.equal( [ ] );
+    expect( user1.recipesToCook ).to.deep.equal( [  ] );
 
-    user2.addRecipeToRecipesToCook( usersData[1] );
-    user2.removeRecipeFromRecipesToCook( usersData[1] );
+    user2.addRecipeToRecipesToCook( recipeData[1] );
+    user2.removeRecipeFromRecipesToCook( recipeData[1].id );
     expect( user2.recipesToCook ).to.be.a( "array" );
-    expect( user2.recipesToCook ).to.deep.equal( [ ] );
+    expect( user2.recipesToCook ).to.deep.equal( [  ] );
   } );
 
   it( 'should filter recipes by tag', ( ) => {
