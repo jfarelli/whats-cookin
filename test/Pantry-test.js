@@ -18,7 +18,7 @@ describe('Pantry', ( ) => {
         user1 = new User( usersData[0] )
 
         recipe1 = new Recipe( recipeData[0], ingredientsData )
-        console.log('RECIPE1: ', recipe1)
+        // console.log('RECIPE1: ', recipe1)
         pantry1 = new Pantry( user1 );
         
         } );
@@ -43,5 +43,9 @@ describe('Pantry', ( ) => {
                 { id: 1012047, quantity: { amount: 24, unit: 'servings' } }
             ] 
         )
+    } );
+
+    it( 'should get missing AMOUNT of ingredients needed for recipe', ( ) => {
+        expect( pantry1.getIngredientAmountNeeded( recipe1 ) ).to.deep.equal( [ { id: 19206, quantity: 1 } ] )
     } );
 } );

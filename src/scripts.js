@@ -48,9 +48,64 @@ navViewProfileButton.addEventListener( 'click' , showCookingProfile );
 
 recipeCardGridContainer.addEventListener( 'click', ( e ) => {
     if ( e.target.classList == 'save-button' ) {
+        // let btn = document.getElementsByClassName('save-button');
+        // for (var i = 0; i < btn.length; i++) {
+        //     (function (index) {
+        //     //   btn[index].addEventListener("click", function () {
+        //         // console.log("Clicked Button: " + index);
+      
+        //         let isPresent = false;
+      
+        //         //   Check if the class is present or not
+        //         this.classList.forEach(function (e, i) {
+        //           if (e == 'save-button') {
+        //             isPresent = true;
+        //           } else {
+        //             isPresent = false;
+        //           }
+        //         });
+      
+        //         //   toggle the presence of class on the basis of the isPresent variable
+        //         if (isPresent) {
+        //           this.classList.remove("button-focus");
+        //         } else {
+        //           this.classList.add("button-focus");
+        //         }
+        //     //   });
+        //     })(i);
+        //   }
         return saveRecipeToRecipesToCook( e );
     };
 } );
+
+
+let btn = document.getElementsByClassName("btn");
+
+    for (var i = 0; i < btn.length; i++) {
+      (function (index) {
+        btn[index].addEventListener("click", function () {
+          console.log("Clicked Button: " + index);
+
+          let isPresent = false;
+
+          //   Check if the class is present or not
+          this.classList.forEach(function (e, i) {
+            if (e == "button-focus") {
+              isPresent = true;
+            } else {
+              isPresent = false;
+            }
+          });
+
+          //   toggle the presence of class on the basis of the isPresent variable
+          if (isPresent) {
+            this.classList.remove("button-focus");
+          } else {
+            this.classList.add("button-focus");
+          }
+        });
+      })(i);
+    }
 
 recipeCardGridContainer.addEventListener( 'click', ( e ) => {
     if ( e.target.classList == 'remove-button' ) {

@@ -1,5 +1,5 @@
 * {
-  border: aqua 3px solid;
+  /* border: aqua 3px solid; */
   font-family: Trebuchet, sans-serif;
 }
 
@@ -126,6 +126,12 @@ button:active {
   width: 1vw relative;
 }
 
+/* .save-button {
+  background-color: rgba( 141, 182, 0, 0.65 );
+  pointer-events: none;
+  cursor:not-allowed;
+} */
+
 .recipe-search {
   border: 1px solid gray;
   height: 3vh;
@@ -140,7 +146,7 @@ button:active {
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-evenly;
-  width: 30%;
+  width: 25%;
 }
 
 .grid-container {
@@ -213,7 +219,6 @@ button:active {
 .recipe-modal:active {
   transform: (-50%, -50%) scale(1);
 }
-
 
 .overlay:active {
   opacity: 1;
