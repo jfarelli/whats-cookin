@@ -1,4 +1,4 @@
-import { expect } from 'chai'; 
+mport { expect } from 'chai'; 
 import Pantry from '../src/classes/Pantry';
 import Recipe from '../src/classes/Recipe';
 import User from '../src/classes/User';
@@ -18,8 +18,8 @@ describe('Pantry', ( ) => {
         user1 = new User( usersData[0] )
 
         recipe1 = new Recipe( recipeData[0], ingredientsData )
-        // console.log('RECIPE1: ', recipe1)
-        pantry1 = new Pantry( user1 );
+        // console.log('ingredientsData: ', ingredientsData)
+        pantry1 = new Pantry( user1, recipe1 );
         
         } );
         
@@ -36,16 +36,24 @@ describe('Pantry', ( ) => {
     } );
 
     it( 'should get missing ingredients needed for recipe', ( ) => {
-        expect( pantry1.getNeededIngredients( recipe1 ) ).to.deep.equal
+        expect( pantry1.getNeededIngredients( recipe1, ingredientsData ) ).to.deep.equal
         ( 
-            [ 
-                { id: 19334, quantity: { amount: 0.5, unit: 'c' } },
-                { id: 1012047, quantity: { amount: 24, unit: 'servings' } }
+            [
+                {
+                  name: 'brown sugar',
+                  id: 19334,
+                  quantity: { amount: 0.5, unit: 'c' }
+                },
+                {
+                  name: 'fine sea salt',
+                  id: 1012047,
+                  quantity: { amount: 24, unit: 'servings' }
+                }
             ] 
         )
     } );
 
     it( 'should get missing AMOUNT of ingredients needed for recipe', ( ) => {
-        expect( pantry1.getIngredientAmountNeeded( recipe1 ) ).to.deep.equal( [ { id: 19206, quantity: 1 } ] )
+        expect( pantry1.getIngredientAmountNeeded( recipe1, ingredientsData ) ).to.deep.equal( [ { name: 'instant vanilla pudding', id: 19206, quantity: 1 } ] )
     } );
 } );
