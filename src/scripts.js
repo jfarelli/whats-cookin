@@ -18,6 +18,7 @@ let ingredientClass;
 let recipeRepository;
 let currentUser;
 let newRecipe;
+let pantryClass;
 let matchingTagConditions = [ ];
 let matchingNameConditions = [ ];
 let savedTagCondits = [ ];
@@ -45,6 +46,7 @@ window.addEventListener( 'load', loadData );
 searchButton.addEventListener( "click", searchRecipe );
 recipeContainer.addEventListener( 'click' , displayRecipeInfo );
 navViewProfileButton.addEventListener( 'click' , showCookingProfile );
+pantryButton.addEventListener( 'click', showPantry );
 
 recipeCardGridContainer.addEventListener( 'click', ( e ) => {
     if ( e.target.classList == 'save-button' ) {
@@ -333,4 +335,11 @@ function deleteRecipeFromRecipesToCook(e){
 function returnHome(  ) {
     navViewProfileButton.innerText = "View Your Cooking Profile";
     displayAllRecipesOnPage(  );
+}
+
+function showPantry( e ) {
+    if( e.target.innerText == 'View Your Pantry' ) {
+        const result = pantryClass.currentUsersPantry.map( recipe => ` ${ ( recipe.amount ).toFixed( 2 ) } ${ recipe.ingredient } \n \n ` ).join('')
+        return recipeContainer.innerText = result;
+    }
 }
