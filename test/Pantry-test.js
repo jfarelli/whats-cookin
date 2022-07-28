@@ -1,4 +1,4 @@
-mport { expect } from 'chai'; 
+import { expect } from 'chai'; 
 import Pantry from '../src/classes/Pantry';
 import Recipe from '../src/classes/Recipe';
 import User from '../src/classes/User';

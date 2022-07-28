@@ -4,7 +4,9 @@ class Pantry {
     constructor( pantryData, ingredientData ) {
         this.currentUsersPantry = pantryData.pantry;
         this.ingredientsList = ingredientData;
-        // console.log(ingredientData)
+        // after running the naming function - this.ingredientsList is returning as undefined, but the pantry is assigning names.  
+        // i don't know if that impacts us further downstream, but help would be appreciated understanding this one.
+        // i could see it being a result of the map() but not entirely sure 
         this.ingredientsNeeded = [ ];      
     };
 
@@ -46,13 +48,16 @@ getIngredientAmountNeeded( recipe, ingredientData ) {
                     }
                 )
         }
-    } )
-    console.log(this.ingredientsNeeded)
-    return this.ingredientsNeeded
+    }) 
 }
 
-
-    
-}
+getPantryItemsWithNames( ingredientList ) {
+    let namedPantryIngredient = this.currentUsersPantry.map( ingredient => { 
+        ingredient.name = ingredientList.find( ing => ing.id == ingredient.ingredient ).name;
+        return ingredient.name;
+        });
+        return namedPantryIngredient
+    };      
+};
   
   export default Pantry;
