@@ -342,14 +342,11 @@ function returnHome(  ) {
 function showPantry( e ) {
     pantryClass = new Pantry( currentUser )
     pantryClass.getPantryItemsWithNames( ingredientList )
-    // // console.log(newRecipe)
-    // return pantryClass.currentUsersPantry.map( item => {
-    //     // console.log('ITEM in SHOWPANTRY: ', item)
-    //     if( e.target.innerText == 'View Your Pantry' ) {
-    //         newRecipe = new Recipe( item, ingredientList)
-    //         newRecipe.getIngredientsWithNames( item.ingredient, ingredientList)
-    //         item.name = newRecipe.getIngredientsWithNames( pantryClass, newRecipe )
-    //         recipeContainer.innerText =` ${ ( item.amount ).toFixed( 2 ) } ${ item.name } \n \n ` 
-    //     }
-    // }).join('')
+    if( e.target.innerText == 'View Your Pantry' ) {
+        // newRecipe = new Recipe( item, ingredientList)
+        recipeContainer.innerText = ""
+        pantryClass.currentUsersPantry.map( item => {
+                recipeContainer.innerText +=` ${ ( item.amount ).toFixed( 2 ) } ${ item.name } \n \n `}).join('')
+    }
+        return result
 }
