@@ -7,6 +7,7 @@ import Recipe from './classes/Recipe';
 import Ingredient from './classes/Ingredient';
 import RecipeRepository from './classes/RecipeRepository';
 import MicroModal from 'micromodal';
+import Pantry from './classes/Pantry';
 
 
 // GLOBAL VARIABLES <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
@@ -39,7 +40,7 @@ let recipeContainer = document.querySelector( '.recipe-grid-container' );
 let recipeCardGridContainer = document.getElementById( "gridContainer" );
 let navViewProfileButton = document.querySelector( '.view-profile-button' );
 let searchInput = document.getElementById("searchInput");
-
+let pantryButton = document.querySelector('.view-pantry-button')
 
 // EVENT LISTENERS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 window.addEventListener( 'load', loadData );
@@ -81,33 +82,33 @@ recipeCardGridContainer.addEventListener( 'click', ( e ) => {
 } );
 
 
-let btn = document.getElementsByClassName("btn");
+// let btn = document.getElementsByClassName("btn");
 
-    for (var i = 0; i < btn.length; i++) {
-      (function (index) {
-        btn[index].addEventListener("click", function () {
-          console.log("Clicked Button: " + index);
+//     for (var i = 0; i < btn.length; i++) {
+//       (function (index) {
+//         btn[index].addEventListener("click", function () {
+//           console.log("Clicked Button: " + index);
 
-          let isPresent = false;
+//           let isPresent = false;
 
-          //   Check if the class is present or not
-          this.classList.forEach(function (e, i) {
-            if (e == "button-focus") {
-              isPresent = true;
-            } else {
-              isPresent = false;
-            }
-          });
+//           //   Check if the class is present or not
+//           this.classList.forEach(function (e, i) {
+//             if (e == "button-focus") {
+//               isPresent = true;
+//             } else {
+//               isPresent = false;
+//             }
+//           });
 
-          //   toggle the presence of class on the basis of the isPresent variable
-          if (isPresent) {
-            this.classList.remove("button-focus");
-          } else {
-            this.classList.add("button-focus");
-          }
-        });
-      })(i);
-    }
+//           //   toggle the presence of class on the basis of the isPresent variable
+//           if (isPresent) {
+//             this.classList.remove("button-focus");
+//           } else {
+//             this.classList.add("button-focus");
+//           }
+//         });
+//       })(i);
+//     }
 
 recipeCardGridContainer.addEventListener( 'click', ( e ) => {
     if ( e.target.classList == 'remove-button' ) {
@@ -145,6 +146,7 @@ Promise.all( [ getData( 'users' ), getData( 'recipes' ), getData( 'ingredients' 
     ingredientClass = new Ingredient( ingredientList.map(ingredient => ingredient.id), ingredientList.map(ingredient => ingredient.name ), ingredientList.map( ingredient =>  ingredient.estimatedCostInCents ) );
     recipeClass = new Recipe( recipeList, ingredientList );
     recipeRepository = new RecipeRepository( recipeList );
+    pantryClass = new Pantry( currentUser, ingredientList )
     displayRandomUserName( );
     displayAllRecipesOnPage( );
     } );
@@ -338,8 +340,16 @@ function returnHome(  ) {
 }
 
 function showPantry( e ) {
-    if( e.target.innerText == 'View Your Pantry' ) {
-        const result = pantryClass.currentUsersPantry.map( recipe => ` ${ ( recipe.amount ).toFixed( 2 ) } ${ recipe.ingredient } \n \n ` ).join('')
-        return recipeContainer.innerText = result;
-    }
+    pantryClass = new Pantry( currentUser )
+    pantryClass.getPantryItemsWithNames( ingredientList )
+    // // console.log(newRecipe)
+    // return pantryClass.currentUsersPantry.map( item => {
+    //     // console.log('ITEM in SHOWPANTRY: ', item)
+    //     if( e.target.innerText == 'View Your Pantry' ) {
+    //         newRecipe = new Recipe( item, ingredientList)
+    //         newRecipe.getIngredientsWithNames( item.ingredient, ingredientList)
+    //         item.name = newRecipe.getIngredientsWithNames( pantryClass, newRecipe )
+    //         recipeContainer.innerText =` ${ ( item.amount ).toFixed( 2 ) } ${ item.name } \n \n ` 
+    //     }
+    // }).join('')
 }

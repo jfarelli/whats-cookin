@@ -46,13 +46,16 @@ getIngredientAmountNeeded( recipe, ingredientData ) {
                     }
                 )
         }
-    } )
-    console.log(this.ingredientsNeeded)
-    return this.ingredientsNeeded
+    }) 
 }
 
-
-    
-}
+getPantryItemsWithNames( ingredientList ) {
+    let namedPantryIngredient = this.currentUsersPantry.map( ingredient => { 
+        ingredient.name = ingredientList.find( ing => ing.id == ingredient.ingredient ).name;
+        return ingredient.name;
+        });
+        return namedPantryIngredient
+    };      
+};
   
   export default Pantry;
