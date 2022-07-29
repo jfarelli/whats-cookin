@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Whats Cookin</title>
+  </head>
   <body>
     <section class="nav-bar">
       <section class="nav-search-container">
@@ -20,7 +26,6 @@
         <section class='recipe-modal modal' id="recipeModal" aria-hidden="true">
           <section id="modal-1-content">
             <form class="form-input-container">
-              
               <label class="what-ingredients" for="user-id">What Ingredients Do You Need?</label>
               <!-- <input id="user-id" type ="text" name="user-id" placeholder="Input User ID" class="input-user-id" required> -->
               <label for="ingredient-id" class="hidden"></label>
@@ -30,8 +35,10 @@
               <input type="submit" value="Add to Pantry" class="submit-button" id="postTripSubmit">
             </form>
             <button aria-label="Close modal" id="closeModal" data-micromodal-close>Close</button>
-            <h4 class='rec-name' id="modal-1-title">Recipe Name</h4>
-            <p class='dish-cost'>Total Cost:</p>
+            <section class="modal-title-and-cost-container">
+              <h4 class='rec-name' id="modal-1-title">Recipe Name</h4>
+              <p class='dish-cost'>Total Cost:</p>
+            </section>
             <section class="ingredient-and-direction-container">
               <section class="cooking-directions">
                 <h5>Cooking Directions</h5>

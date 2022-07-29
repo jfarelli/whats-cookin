@@ -42,8 +42,17 @@ h4 {
   color:white;
   font-size: 36px;
   margin: 0;
-  margin-top: 40px;
+  /* margin-top: 40px; */
   text-shadow: 2px 3px rgba( 0, 0, 0, 0.6 );
+  /* margin-bottom: 10%; */
+}
+.modal-title-and-cost-container {
+  width: 72%;
+  margin-top: 10%;
+  /* display:flex; */
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
 }
 
 h5 {
@@ -59,8 +68,6 @@ input {
   height: 30px;
   overflow: visible;
   text-align: center;
-  /* text-overflow: ellipsis; */
-  /* width: 40px; */
   white-space: nowrap;
 }
 
@@ -99,12 +106,12 @@ form {
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  position:absolute;
-  margin-top: 1%;
+  position: absolute;
+  margin-top: 8%;
   /* min-width: 15rem; */
   /* top: 2%; */
-  right: 1%;
-  transform: translateX(175%);
+  right: 3%;
+  /* transform: translateX(175%); */
 }
 
 /* // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ POST DATA STYLING ON MODAL ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
@@ -247,6 +254,7 @@ label {
 }
 
 .ingredient-and-direction-container {
+  margin-top: 10%;
   display: flex;
   background-color: rgba( 211, 211, 211, 0.55 );
   border: 1px solid rgba( 0, 0, 0, 0.7 );
@@ -258,11 +266,16 @@ label {
 }
 
 #modal-1-content {
+  display: flex;
+  padding: 3%;
   background-image: linear-gradient( rgba( 0, 0, 0, 0.4 ), rgba( 0, 0, 0, 0.4 ) ), url( './images/nav-background.jpg' );
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   flex-wrap: wrap;
+  contain: content;
+  justify-content: baseline;
+  align-items: flex-start;
 }
 
 /* // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv POST DATA STYLING ON MODAL vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv */
@@ -271,25 +284,15 @@ label {
   display: flex;
   align-items:center;
   align-self: center;
-  /* flex-wrap: wrap; */
-  /* height: 30px; */
-  /* overflow: visible; */
   text-align: center;
   height: 15px;
   margin: 3px;
-  /* text-overflow: ellipsis; */
-  /* min-width: 40px; */
-  /* white-space: nowrap; */
 }
 
 .input-quantity {
   display: flex;
-  /* align-items:center; */
   align-self: center;
   text-align: center;
-  /* flex-wrap: wrap; */
-  /* height: 30px; */
-  /* overflow: visible; */
   text-align: center;
   height: 15px;
   width: 50%; 
@@ -299,15 +302,12 @@ label {
 .submit-button {
   display: flex;
   align-self: center;
-  /* margin-top: 3px; */
   background-color: rgba( 211, 211, 211, 0.75 );
   border: 1px ridge rgba( 0, 0, 0, 0.4 );
   border-radius: 5px;
   box-shadow: 0 1px 2px rgba( 0, 0, 0 );
   color: rgba( 0, 0, 0, 0.9 );
   margin-top: 1%;
-  /* contain: content;
-  text-overflow: contain; */
   height: 10%;
 }
 
@@ -333,6 +333,7 @@ label {
   background-color: rgba( 255, 255, 255, 0.95 );
   display: flex;
   flex-direction: column;
+  margin-bottom: 2%;
 }
 
 .modal-ingredients, .modal-instructions {
@@ -351,6 +352,8 @@ label {
 }
 
 .dish-cost {
+  display: flex;
+  justify-content: center;
   color:white;
   font-size: 25px;
   font-weight: bold;
