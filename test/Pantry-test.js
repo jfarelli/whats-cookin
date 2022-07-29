@@ -18,7 +18,6 @@ describe('Pantry', ( ) => {
         user1 = new User( usersData[0] )
 
         recipe1 = new Recipe( recipeData[0], ingredientsData )
-        // console.log('ingredientsData: ', ingredientsData)
         pantry1 = new Pantry( user1, recipe1 );
         
         } );

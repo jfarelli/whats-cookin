@@ -35,6 +35,7 @@ let searchButton = document.querySelector( ".search-button" );
 let closeModalButton = document.getElementById( "closeModal" );
 let ingredientText = document.querySelector( '.modal-ingredients' );
 let instructionText = document.querySelector( '.modal-instructions' );
+let spanText = document.querySelector('.pantry-check')
 let welcomeUserMessage = document.getElementById( 'welcomeUserMessage' );
 let recipeContainer = document.querySelector( '.recipe-grid-container' );
 let recipeCardGridContainer = document.getElementById( "gridContainer" );
@@ -279,19 +280,34 @@ function displayRecipeInfo( e ){
     // })
 
     newRecipe.recipes.map( dish  => {
-        console.log("dom dish: ", dish)
-        if( e.target.id == dish.id ){       
+        // console.log("dish being iterated in scripts: ", dish);
+        if( e.target.id == dish.id ){
             recipeClass = new Recipe( dish, dish.ingredients );
             recipeClass.getIngredientsWithNames( dish.ingredients, ingredientList );
+            pantryClass = new Pantry( currentUser )
+            pantryClass.getNeededIngredients( dish, ingredientList )
+            pantryClass.getIngredientAmountNeeded( dish, ingredientList )
+            pantryClass.getPantryItemsWithNames( ingredientList )
             h4.innerText = dish.name; 
             instructionText.innerText = dish.instructions.map( task => `${ task.number }: ${ task.instruction }` ).join( ' \n \n ' );
-            ingredientText.innerText = dish.ingredients.map( foodItem => ` ${ ( foodItem.quantity.amount ).toFixed( 2 ) } ${ foodItem.quantity.unit } ${ foodItem.name }` ).join( ' \n \n ');
+            ingredientText.innerText = dish.ingredients.map( (foodItem, index) => {
+                //this code is slightly functional and could use refactor until.
+                // let interpolateMissingIngr
+                // let recipeDiscrepancy = pantryClass.ingredientsNeeded.map((missingIngr) => {
+                //     if(missingIngr.id == foodItem.id){
+                //         interpolateMissingIngr = `You need to purchase ${missingIngr.quantity.amount} ${missingIngr.quantity.unit}`
+                //     }
+                // })
+                // if(foodItem.id == pantryClass.ingredientsNeeded.id){
+                //     recipeDiscrepancy = `You need ${currentUsersPantry.ingredientsNeeded.quantity.amount}`
+                // }
+                // console.log(pantryClass.currentUsersPantry[index])  
+                return ` ${ ( foodItem.quantity.amount ).toFixed( 2 ) } ${ foodItem.quantity.unit } ${ foodItem.name }`}).join( ' \n \n ');
             totalCost.innerText = `Total Cost: $${ parseFloat( recipeClass.getCostOfIngredients( dish.ingredients, ingredientList ) * .01 ).toFixed( 2 ) }`;
             return 
         };       
     });
 };
-
 
 function saveRecipeToRecipesToCook ( e ) {
     return newRecipe.recipes.filter( favoriteDish => {
@@ -316,7 +332,6 @@ function showCookingProfile( e ) {
             </div>
             </section>`
         } ).join( '' );
-        console.log("before deletion/view array", currentUser.recipesToCook)
         return recipeContainer.innerHTML = result;
     }
     if( e.target.innerText == 'Return Home' ){
@@ -372,4 +387,4 @@ function showPantry( e ) {
     //display the ingredient amount needed if there is not enough in pantry. maybe a <p> tag or something.\
     // pantryClass = new Pantry( currentUser )
 
-}
+// }

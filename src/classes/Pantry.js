@@ -10,14 +10,14 @@ class Pantry {
         this.ingredientsNeeded = [ ];      
     };
 
-
-
    // Determine whether a user's pantry has enough ingredients to cook a given recipe.
 getNeededIngredients( recipe, ingredientData ) {
-    // console.log("pantry class dish/recipe: ", recipe)
+    // console.log("pantry class recipe: ", recipe)
     let newRecipe = new Recipe( recipe, ingredientData )
         recipe.ingredients.forEach( recipeIngredient => {
-            let foundIngredients = this.currentUsersPantry.find( pantryItem => pantryItem.ingredient === recipeIngredient.id )
+            let foundIngredients = this.currentUsersPantry.find( pantryItem => {
+                // console.log(pantryItem)
+                pantryItem.ingredient === recipeIngredient.id })
             if( !foundIngredients ) {
                 this.ingredientsNeeded.push
                 ( 
