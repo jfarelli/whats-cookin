@@ -42,17 +42,14 @@ h4 {
   color:white;
   font-size: 36px;
   margin: 0;
-  /* margin-top: 40px; */
   text-shadow: 2px 3px rgba( 0, 0, 0, 0.6 );
-  /* margin-bottom: 10%; */
 }
 .modal-title-and-cost-container {
-  width: 72%;
-  margin-top: 10%;
-  /* display:flex; */
+  width: 69%;
+  height: 20vh;
+  margin-top: 8%;
+  right: 3%;
   flex-direction: column;
-  justify-content: center;
-  /* align-items: center; */
 }
 
 h5 {
@@ -106,12 +103,14 @@ form {
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
+  flex-wrap: wrap;
+  width: 15vw;
+  height: 20vh;
+  contain: content;
   position: absolute;
-  margin-top: 8%;
-  /* min-width: 15rem; */
-  /* top: 2%; */
+  margin-top: 6%;
   right: 3%;
-  /* transform: translateX(175%); */
+  padding: 3px;
 }
 
 /* // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ POST DATA STYLING ON MODAL ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
@@ -138,7 +137,7 @@ label {
 .nav-search-container, .nav-input-search-container {
   display: flex;
   align-self: baseline;
-  justify-content: flex-end;
+  justify-content: space-around;
   margin: 0px;
   width: 100vw;
 }
@@ -168,13 +167,11 @@ label {
 
 .nav-button-container {
   display: flex;
-  align-content: space-between;
-  align-items: center;
+  justify-content: center;
   align-self: center;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-evenly;
-  width: 25%;
+  flex-wrap: wrap;
+  width: 30%;
+  gap: 7%;
 }
 
 .grid-container {
@@ -254,7 +251,7 @@ label {
 }
 
 .ingredient-and-direction-container {
-  margin-top: 10%;
+  margin-top: 2%;
   display: flex;
   background-color: rgba( 211, 211, 211, 0.55 );
   border: 1px solid rgba( 0, 0, 0, 0.7 );
@@ -320,7 +317,7 @@ label {
 
 .what-ingredients {
   color: white;
-  font-size: 15px;
+  font-size: 20px;
   text-shadow: 2px 2px rgba( 0, 0, 0, 0.6 );
   margin: 0;
   margin-bottom: 5px;
