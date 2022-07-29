@@ -25,28 +25,28 @@
       </section>
         <section class='recipe-modal modal' id="recipeModal" aria-hidden="true">
           <section id="modal-1-content">
-            <form class="form-input-container">
-              <label class="what-ingredients" for="user-id">What Ingredients Do You Need?</label>
-              <!-- <input id="user-id" type ="text" name="user-id" placeholder="Input User ID" class="input-user-id" required> -->
-              <label for="ingredient-id" class="hidden"></label>
-              <input id="ingredient-id" type ="text" name="ingredient-id" placeholder="Input Ingredient ID" class="input-ingredient-id" required>
-              <label for="ingredient-amount" class="hidden"></label>
-              <input id="ingredient-amount" type ="number" name="ingredient-amount" placeholder="Quantity" class="input-quantity" step="0.25" min="0" max="100" required>
-              <input type="submit" value="Add to Pantry" class="submit-button" id="postTripSubmit">
-            </form>
-            <button aria-label="Close modal" id="closeModal" data-micromodal-close>Close</button>
             <section class="modal-title-and-cost-container">
+              <button class="close-button" aria-label="Close modal" id="closeModal" data-micromodal-close>Close</button>
+              <form class="form-input-container">
+                <label class="what-ingredients" for="user-id">What Ingredients Do You Need?</label>
+                <!-- <input id="user-id" type ="text" name="user-id" placeholder="Input User ID" class="input-user-id" required> -->
+                <label for="ingredient-id" class="hidden"></label>
+                <input id="ingredient-id" type ="text" name="ingredient-id" placeholder="Input Ingredient ID" class="input-ingredient-id" required>
+                <label for="ingredient-amount" class="hidden"></label>
+                <input id="ingredient-amount" type ="number" name="ingredient-amount" placeholder="Quantity" class="input-quantity" step="0.25" min="0" max="100" required>
+                <input type="submit" value="Add to Pantry" class="submit-button" id="postTripSubmit">
+              </form>
               <h4 class='rec-name' id="modal-1-title">Recipe Name</h4>
               <p class='dish-cost'>Total Cost:</p>
             </section>
             <section class="ingredient-and-direction-container">
               <section class="cooking-directions">
                 <h5>Cooking Directions</h5>
-                <p class="modal-instructions">DIRECTIONS GO HERE</p>
+                <section class="modal-instructions">DIRECTIONS GO HERE</section>
               </section>
               <section class="ingredient-list">
                 <h5>Ingredients</h5>
-                <p class="modal-ingredients">INGREDIENTS GO HERE</p>
+                <section class="modal-ingredients">INGREDIENTS GO HERE</section>
               </section>
             </section>
           </section>

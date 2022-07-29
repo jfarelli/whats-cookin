@@ -42,14 +42,16 @@ h4 {
   color:white;
   font-size: 36px;
   margin: 0;
+  margin-top: 2%;
   text-shadow: 2px 3px rgba( 0, 0, 0, 0.6 );
 }
 .modal-title-and-cost-container {
-  width: 69%;
   height: 20vh;
-  margin-top: 8%;
-  right: 3%;
+  margin-right: 25%;
+  margin-bottom: 6%;
   flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 h5 {
@@ -108,7 +110,6 @@ form {
   height: 20vh;
   contain: content;
   position: absolute;
-  margin-top: 6%;
   right: 3%;
   padding: 3px;
 }
@@ -132,6 +133,7 @@ label {
   height: 29vh;
   margin: 0%, 0%, 0%, 0%;
   position: fixed;
+  white-space: wrap;
 }
 
 .nav-search-container, .nav-input-search-container {
@@ -224,7 +226,7 @@ label {
   border: 1px solid black;
   border-radius: 10px;
   display: none;
-  height: 90%;
+  height: 100%;
   left: 50%;
   position: fixed;
   text-align: center;
@@ -251,8 +253,10 @@ label {
 }
 
 .ingredient-and-direction-container {
-  margin-top: 2%;
+  margin-top: 4%;
   display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: rgba( 211, 211, 211, 0.55 );
   border: 1px solid rgba( 0, 0, 0, 0.7 );
   background-image: linear-gradient( rgba( 0, 0, 0, 0.4 ),rgba( 0, 0, 0, 0.4 ) ), url( './images/nav-background.jpg' );
@@ -271,8 +275,7 @@ label {
   background-size: cover;
   flex-wrap: wrap;
   contain: content;
-  justify-content: baseline;
-  align-items: flex-start;
+  justify-content: center;
 }
 
 /* // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv POST DATA STYLING ON MODAL vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv */
@@ -328,24 +331,26 @@ label {
 
 .ingredient-list, .cooking-directions {
   background-color: rgba( 255, 255, 255, 0.95 );
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  margin-bottom: 2%;
+  margin-bottom: 2%; */
 }
 
 .modal-ingredients, .modal-instructions {
-  align-content: center;
-  align-items: center;
+  /* min-width: 50vw; */
+  /* align-content: center;
+  align-items: center; */
   background-color: rgba( 255, 255, 255, 0.95 );
   border: 2px solid rgba( 0, 0, 0, 0.5 );
-  contain: content;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  height: 55vh;
-  justify-content: flex-start;
-  overflow: clip scroll;
-  width: 33vw; 
+  /* flex-wrap: wrap; */
+  height: 40vh;
+  justify-content: center;
+  contain: content;
+  white-space: wrap; 
+  overflow: scroll;
+  width: 33vw;
 }
 
 .dish-cost {
@@ -377,7 +382,10 @@ label {
 }
 
 #closeModal {
-  margin-top: 23px;
+ padding: 1%;
+ margin-left: 40%;
+ margin-bottom: 2%;
+ float: inline-start;
 }
 
 .hidden {
