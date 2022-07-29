@@ -2,6 +2,7 @@
 import './styles.css';
 import './images/nav-background.jpg';
 import { getData } from './apiCalls';
+import { postData } from './apiCalls';
 import User from './classes/User';
 import Recipe from './classes/Recipe';
 import Ingredient from './classes/Ingredient';
@@ -139,18 +140,20 @@ searchInput.addEventListener("keypress", function(event) {
 
 // DOM MANIPULATION <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 function loadData( ) {
-Promise.all( [ getData( 'users' ), getData( 'recipes' ), getData( 'ingredients' ) ] ).then( data => {
-    userList = data[ 0 ].usersData;
-    recipeList = data[ 1 ].recipeData;
-    ingredientList = data[ 2 ].ingredientsData;
-    currentUser = new User( userList[ Math.floor( Math.random( ) * userList.length ) ] );
-    ingredientClass = new Ingredient( ingredientList.map(ingredient => ingredient.id), ingredientList.map(ingredient => ingredient.name ), ingredientList.map( ingredient =>  ingredient.estimatedCostInCents ) );
-    recipeClass = new Recipe( recipeList, ingredientList );
-    recipeRepository = new RecipeRepository( recipeList );
-    pantryClass = new Pantry( currentUser, ingredientList )
-    displayRandomUserName( );
-    displayAllRecipesOnPage( );
-    } );
+    Promise.all( [ getData( 'users' ), getData( 'recipes' ), getData( 'ingredients' ) ] ).then( data => {
+        userList = data[ 0 ];
+        recipeList = data[ 1 ];
+        ingredientList = data[ 2 ];
+        currentUser = new User( userList[ Math.floor( Math.random( ) * userList.length ) ] );
+        ingredientClass = new Ingredient( ingredientList.map(ingredient => ingredient.id), ingredientList.map(ingredient => ingredient.name ), ingredientList.map( ingredient =>  ingredient.estimatedCostInCents ) );
+        recipeClass = new Recipe( recipeList, ingredientList );
+        recipeRepository = new RecipeRepository( recipeList );
+        pantryClass = new Pantry( currentUser, ingredientList )
+        displayRandomUserName( );
+        displayAllRecipesOnPage( );
+        displayUserInfoForPost( )
+        console.log('CURRENT USER in PROMISE: ', currentUser)
+        } );
 }
 
 
@@ -158,6 +161,49 @@ function displayRandomUserName( ) {
     welcomeUserMessage.innerText = `Welcome, ${ currentUser.name.split( ' ' )[ 0 ] }!`;
 }
 
+ // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv POST DATA vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+ let postedUserData;
+ let whatIngredientsDoYouNeed = document.querySelector('.what-ingredients')
+ 
+ function displayUserInfoForPost( ) {
+     whatIngredientsDoYouNeed.innerText = `What Ingredients \n Do You Need, \n ${ currentUser.name.split( ' ' )[ 0 ] }?`;
+     // document.getElementsByName('user-id')[0].placeholder = `${ currentUser.id }`;
+ }
+ 
+ let postTripInputButton = document.querySelector( '.form-input-container' );
+ postTripInputButton.addEventListener( 'submit', getUpdatedUserIngredientsFromPost );
+ 
+ 
+ function getUpdatedUserIngredientsFromPost( event ) {
+     event.preventDefault( );
+     let updatedUser = getPostedUserDataFromForm( event );
+     let postUserIngredients = postData( updatedUser );
+     let fetchMeThatPromise = getData( 'users' );
+     Promise.all( [ postUserIngredients, fetchMeThatPromise ] ).then( response => {
+         console.log('RESPONSE RETURNED from PROMISE after POST: ', response[ 1 ])
+         pantryClass = new Pantry( response[ 1 ] );
+     } )
+         .catch( error => console.log( error ) )
+ };
+ 
+ 
+ function getPostedUserDataFromForm( event ) {
+     console.log('CURRENTUSER.PANTRY BEFORE: ', currentUser.pantry)
+     
+     postedUserData = new FormData( event.target ); 
+     let updateUserPantry = {
+         userID: currentUser.id,
+         ingredientID: parseFloat( postedUserData.get('ingredient-id') ), 
+         // currentUser.pantry.find( ingredient => ingredient.id === event),
+         ingredientModification: parseFloat( postedUserData.get('ingredient-amount') ), 
+     };
+     // event.reset( );
+     console.log('DATA FROM FORM INPUTS: ', updateUserPantry)
+     return updateUserPantry
+ }
+ 
+ 
+ // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ POST DATA ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 function searchRecipe( e ) {
     if ( e.target.id == 'search-cooking' ) {

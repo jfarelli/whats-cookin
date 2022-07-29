@@ -59,15 +59,15 @@ input {
   height: 30px;
   overflow: visible;
   text-align: center;
-  text-overflow: ellipsis;
-  width: 40px;
+  /* text-overflow: ellipsis; */
+  /* width: 40px; */
   white-space: nowrap;
 }
 
-input:focus{
+/* input:focus{
   width: 100%;
   height: 100%;
-}
+} */
 
 button {
   background-color: rgba( 211, 211, 211, 0.55 );
@@ -90,6 +90,27 @@ button:hover{
 button:active {
   box-shadow: 0 1px 2px rgba( 0, 0, 0, 0.9 );
   transform: translateY( 1px );
+}
+
+/* // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv POST DATA STYLING ON MODAL vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv */
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  position:absolute;
+  margin-top: 1%;
+  /* min-width: 15rem; */
+  /* top: 2%; */
+  right: 1%;
+  transform: translateX(175%);
+}
+
+/* // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ POST DATA STYLING ON MODAL ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
+
+label {
+  margin-bottom: 3px;
 }
 
 .nav-bar {
@@ -243,6 +264,70 @@ button:active {
   background-size: cover;
   flex-wrap: wrap;
 }
+
+/* // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv POST DATA STYLING ON MODAL vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv */
+
+.input-user-id, .input-ingredient-id {
+  display: flex;
+  align-items:center;
+  align-self: center;
+  /* flex-wrap: wrap; */
+  /* height: 30px; */
+  /* overflow: visible; */
+  text-align: center;
+  height: 15px;
+  margin: 3px;
+  /* text-overflow: ellipsis; */
+  /* min-width: 40px; */
+  /* white-space: nowrap; */
+}
+
+.input-quantity {
+  display: flex;
+  /* align-items:center; */
+  align-self: center;
+  text-align: center;
+  /* flex-wrap: wrap; */
+  /* height: 30px; */
+  /* overflow: visible; */
+  text-align: center;
+  height: 15px;
+  width: 50%; 
+  margin: 3px;
+}
+
+.submit-button {
+  display: flex;
+  align-self: center;
+  /* margin-top: 3px; */
+  background-color: rgba( 211, 211, 211, 0.75 );
+  border: 1px ridge rgba( 0, 0, 0, 0.4 );
+  border-radius: 5px;
+  box-shadow: 0 1px 2px rgba( 0, 0, 0 );
+  color: rgba( 0, 0, 0, 0.9 );
+  margin-top: 1%;
+  /* contain: content;
+  text-overflow: contain; */
+  height: 10%;
+}
+
+.submit-button:hover {
+  background-color: rgba( 141, 182, 0, 0.65 );
+  box-shadow: 0 1px 5px rgba( 0, 0, 0 );
+  color: rgb( 0, 0, 0 );
+  cursor: pointer;
+}
+
+.what-ingredients {
+  color: white;
+  font-size: 15px;
+  text-shadow: 2px 2px rgba( 0, 0, 0, 0.6 );
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+
+/* // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ POST DATA STYLING ON MODAL ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
 
 .ingredient-list, .cooking-directions {
   background-color: rgba( 255, 255, 255, 0.95 );
