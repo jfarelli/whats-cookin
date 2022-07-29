@@ -2,7 +2,7 @@ class Recipe {
     constructor( recipe, ingredientList ){
         this.id = recipe.id;
         this.image = recipe.image;
-        this.recipeIngredients = recipe.ingredients;
+        this.ingredients = recipe.ingredients;
         this.instructions = recipe.instructions;
         this.name = recipe.name;
         this.tags = recipe.tags;
