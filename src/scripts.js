@@ -264,13 +264,26 @@ function displayAllRecipesOnPage( e ) {
 };
 
 
+
+//displayRecipeInfo to require refactor with pantry information.
 function displayRecipeInfo( e ){
-    newRecipe = new RecipeRepository( recipeList );
+    // let recipeForModal;
+
+    // newRecipe = new RecipeRepository( recipeList );
+    // pantryClass = new Pantry( currentUser )
+
+    // recipeForModal = newRecipe.recipes.map( modalDish => {
+    //     if(e.target.id == modalDish.id){
+
+    //     }
+    // })
+
     newRecipe.recipes.map( dish  => {
-        if( e.target.id == dish.id ){
+        console.log("dom dish: ", dish)
+        if( e.target.id == dish.id ){       
             recipeClass = new Recipe( dish, dish.ingredients );
             recipeClass.getIngredientsWithNames( dish.ingredients, ingredientList );
-            h4.innerText = dish.name;  
+            h4.innerText = dish.name; 
             instructionText.innerText = dish.instructions.map( task => `${ task.number }: ${ task.instruction }` ).join( ' \n \n ' );
             ingredientText.innerText = dish.ingredients.map( foodItem => ` ${ ( foodItem.quantity.amount ).toFixed( 2 ) } ${ foodItem.quantity.unit } ${ foodItem.name }` ).join( ' \n \n ');
             totalCost.innerText = `Total Cost: $${ parseFloat( recipeClass.getCostOfIngredients( dish.ingredients, ingredientList ) * .01 ).toFixed( 2 ) }`;
@@ -349,4 +362,14 @@ function showPantry( e ) {
                 recipeContainer.innerText +=` ${ ( item.amount ).toFixed( 2 ) } ${ item.name } \n \n `}).join('')
     }
         return result
+}
+
+// function handlePantryAndRecipeTotals ( e ) {
+    //pantry functions used: getNeededIngredients( ) , getIngredientAmountNeeded( )
+    // dom manipulation to occur in the modal-related function
+    //display check mark emoji if there is enough of the ingredient
+    //display red x emoji if there is not enough
+    //display the ingredient amount needed if there is not enough in pantry. maybe a <p> tag or something.\
+    // pantryClass = new Pantry( currentUser )
+
 }

@@ -40,11 +40,11 @@ describe('Recipe', ( ) => {
   } );
 
   it( 'should contain recipe ingredients', ( ) => {
-    expect( recipe1.recipeIngredients ).to.be.a( "array" );
-    expect( recipe1.recipeIngredients ).to.deep.equal( recipeData[0].ingredients );
+    expect( recipe1.ingredients ).to.be.a( "array" );
+    expect( recipe1.ingredients ).to.deep.equal( recipeData[0].ingredients );
 
-    expect( recipe2.recipeIngredients ).to.be.a( "array" );
-    expect( recipe2.recipeIngredients ).to.deep.equal( recipeData[1].ingredients );
+    expect( recipe2.ingredients ).to.be.a( "array" );
+    expect( recipe2.ingredients ).to.deep.equal( recipeData[1].ingredients );
   } );
 
   it( 'should have recipe instructions', ( ) => {
