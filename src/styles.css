@@ -134,6 +134,7 @@ label {
   margin: 0%, 0%, 0%, 0%;
   position: fixed;
   white-space: wrap;
+  z-index:1;
 }
 
 .nav-search-container, .nav-input-search-container {
