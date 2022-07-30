@@ -336,6 +336,24 @@ label {
   margin-bottom: 2%; */
 }
 
+/* From Maia mid-width, align-content, alignt-items, & flex-wrap were commented out
+.modal-ingredients, .modal-instructions {
+  min-width: 50vw; 
+  align-content: center;
+  align-items: center;
+  background-color: rgba( 255, 255, 255, 0.95 );
+  border: 2px solid rgba( 0, 0, 0, 0.5 );
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 58vh;
+  justify-content: center;
+  contain: content;
+  white-space: wrap; 
+  overflow: scroll;
+  width: 33vw;
+} */
+
 .modal-ingredients, .modal-instructions {
   /* min-width: 50vw; */
   /* align-content: center;

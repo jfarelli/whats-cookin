@@ -310,50 +310,99 @@ function displayAllRecipesOnPage( e ) {
     return recipeCards.innerHTML = result;
 };
 
+// function displayRecipeInfo( e ){
+//     // let recipeForModal;
 
+//     // newRecipe = new RecipeRepository( recipeList );
+//     // pantryClass = new Pantry( currentUser )
+
+//     // recipeForModal = newRecipe.recipes.map( modalDish => {
+//     //     if(e.target.id == modalDish.id){
+
+//     //     }
+//     // })
+//     // console.log('newRecipe.RECIPES', newRecipe.recipes)
+//     newRecipe.recipes.map( dish  => {
+//         // console.log("Iterating through all recipes in scripts: ", dish);
+//         if( e.target.id == dish.id ){
+//             console.log("dish SELECTED in scripts: ", dish);
+//             recipeClass = new Recipe( dish, dish.ingredients );
+//             recipeClass.getIngredientsWithNames( dish.ingredients, ingredientList );
+//             pantryClass = new Pantry( currentUser.pantry, ingredientList )
+//             pantryClass.getNeededIngredients( dish, ingredientList )
+//             pantryClass.getIngredientAmountNeeded( dish, ingredientList )
+//             pantryClass.getPantryItemsWithNames( ingredientList )
+//             h4.innerText = dish.name; 
+//             totalCost.innerText = `Total Cost: $${ parseFloat( recipeClass.getCostOfIngredients( dish.ingredients, ingredientList ) * .01 ).toFixed( 2 ) }`;
+//             instructionText.innerText = dish.instructions.map( task => `${ task.number }: ${ task.instruction }` ).join( ' \n \n ' );
+//             ingredientText.innerText = dish.ingredients.map( (foodItem) => {
+//                 // this code is slightly functional and could use refactor until.
+//                 // console.log('INDEX: ', index)
+//                 // console.log('FOODITEM ( Scripts ): ', foodItem)
+//                 let interpolateMissingIngr;
+//                 console.log('PANTRYCLASS: ', pantryClass)
+//                 let pantryKeys = Object.keys( pantryClass )
+//                 console.log('PANTRYKEYS: ', pantryKeys)
+//                 return pantryKeys.reduce( ( acc, key ) => {
+//                     console.log('PANTRYCLASS[key]: ', pantryClass[key])
+//                     console.log('KEY ( Scripts ): ', key)
+//                     pantryClass[ key ].forEach( item => {
+//                         // console.log('ITEM within pantryclass[ key ]: ', item)
+//                         // console.log('FOODITEM within pantryclass[ key ]: ', foodItem)
+//                         if(item.id === foodItem.id){
+//                             interpolateMissingIngr = `You need to purchase ${foodItem.quantity.amount} ${foodItem.quantity.unit}`
+//                             return interpolateMissingIngr
+//                         }
+                        
+//                     } ) `  ${ ( foodItem.quantity.amount ).toFixed( 2 ) } ${ foodItem.quantity.unit } ${ foodItem.name }`
+                    
+//                     return acc
+//                 }, [ ] )
+                
+//             }).join( ' \n \n ');
+            
+//         };    
+//     });
+// };
 
 //displayRecipeInfo to require refactor with pantry information.
 function displayRecipeInfo( e ){
-    // let recipeForModal;
-
-    // newRecipe = new RecipeRepository( recipeList );
-    // pantryClass = new Pantry( currentUser )
-
-    // recipeForModal = newRecipe.recipes.map( modalDish => {
-    //     if(e.target.id == modalDish.id){
-
-    //     }
-    // })
-
-    newRecipe.recipes.map( dish  => {
-        // console.log("dish being iterated in scripts: ", dish);
+    return newRecipe.recipes.map( dish  => {
         if( e.target.id == dish.id ){
-            recipeClass = new Recipe( dish, dish.ingredients );
+            console.log("dish SELECTED: ", dish);
+            recipeClass = new Recipe( dish, ingredientList );
             recipeClass.getIngredientsWithNames( dish.ingredients, ingredientList );
-            pantryClass = new Pantry( currentUser )
-            pantryClass.getNeededIngredients( dish, ingredientList )
-            pantryClass.getIngredientAmountNeeded( dish, ingredientList )
-            pantryClass.getPantryItemsWithNames( ingredientList )
+            pantryClass = new Pantry( currentUser, ingredientList );
+            console.log('PANTRYCLASS: ', pantryClass);
+            pantryClass.getMissingIngredients( dish, ingredientList );
+            pantryClass.getIngredientAmountNeeded( dish, ingredientList );
+            pantryClass.getPantryItemsWithNames( dish, ingredientList );
             h4.innerText = dish.name; 
-            instructionText.innerText = dish.instructions.map( task => `${ task.number }: ${ task.instruction }` ).join( ' \n \n ' );
-            ingredientText.innerText = dish.ingredients.map( (foodItem, index) => {
-                //this code is slightly functional and could use refactor until.
-                // let interpolateMissingIngr
-                // let recipeDiscrepancy = pantryClass.ingredientsNeeded.map((missingIngr) => {
-                //     if(missingIngr.id == foodItem.id){
-                //         interpolateMissingIngr = `You need to purchase ${missingIngr.quantity.amount} ${missingIngr.quantity.unit}`
-                //     }
-                // })
-                // if(foodItem.id == pantryClass.ingredientsNeeded.id){
-                //     recipeDiscrepancy = `You need ${currentUsersPantry.ingredientsNeeded.quantity.amount}`
-                // }
-                // console.log(pantryClass.currentUsersPantry[index])  
-                return ` ${ ( foodItem.quantity.amount ).toFixed( 2 ) } ${ foodItem.quantity.unit } ${ foodItem.name }`}).join( ' \n \n ');
             totalCost.innerText = `Total Cost: $${ parseFloat( recipeClass.getCostOfIngredients( dish.ingredients, ingredientList ) * .01 ).toFixed( 2 ) }`;
-            return 
-        };       
+            instructionText.innerText = dish.instructions.map( task => `${ task.number }: ${ task.instruction }` ).join( ' \n \n ' );
+            ingredientText.innerText = dish.ingredients.map( recipeItem => { 
+
+                // return `${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name }`
+
+                let pantryKeys = Object.keys( pantryClass );
+                return pantryKeys.reduce( ( acc, pantryKey ) => {
+                    pantryClass[ pantryKey ].forEach( pantryIngredient => {
+                        // console.log('PANTRYINGREDIENT: ', pantryIngredient)
+                        if( recipeItem.quantity.amount > pantryIngredient.amount && pantryIngredient.id === recipeItem.id ) {
+                            console.log('I DON\'T HAVE ENOUGH')
+                            acc = `${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name } You need to purchase ${recipeItem.quantity.amount - pantryIngredient.amount} ${recipeItem.quantity.unit}`
+                        } else {
+                            console.log('I HAVE ENOUGH!')
+                            acc = `${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name }`
+                        }
+                    } )
+                    return acc
+                }, [ ] )
+      
+            } ).join( `\n \n` );
+        };
     });
-};
+}
 
 function saveRecipeToRecipesToCook ( e ) {
     return newRecipe.recipes.filter( favoriteDish => {
