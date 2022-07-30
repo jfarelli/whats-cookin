@@ -245,6 +245,7 @@ function displayAllRecipesOnPage( e ) {
 };
 
 function displayRecipeInfo( e ){
+    ingredientText.innerText = ''
     return newRecipe.recipes.map( dish  => {
         if( e.target.id == dish.id ){
             console.log('DISH SELECTED: ', dish)
