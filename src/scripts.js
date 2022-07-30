@@ -410,12 +410,10 @@ function displayAllRecipesOnPage( e ) {
 function displayRecipeInfo( e ){
     return newRecipe.recipes.map( dish  => {
         if( e.target.id == dish.id ){
+            console.log('DISH SELECTED: ', dish)
             recipeClass = new Recipe( dish, ingredientList );
             recipeClass.getIngredientsWithNames( dish.ingredients, ingredientList );
             pantryClass = new Pantry( currentUser, ingredientList );
-            pantryClass.getMissingIngredients( dish, ingredientList );
-            pantryClass.getIngredientAmountNeeded( dish, ingredientList );
-            pantryClass.getPantryItemsWithNames( dish, ingredientList );
             h4.innerText = dish.name; 
             totalCost.innerText = `Total Cost: $${ parseFloat( recipeClass.getCostOfIngredients( dish.ingredients, ingredientList ) * .01 ).toFixed( 2 ) }`;
             instructionText.innerText = dish.instructions.map( task => `${ task.number }: ${ task.instruction }` ).join( ' \n \n ' );
@@ -424,12 +422,13 @@ function displayRecipeInfo( e ){
                 return acc
             }, { } )
             return dish.ingredients.map( recipeItem => { 
+                console.log('pantryObj[ recipeItem.id ]', pantryObj[ recipeItem.id ])
                         if( !pantryObj[ recipeItem.id ]){
                             ingredientText.innerText += 
                             `${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name } - You don't have any ${recipeItem.name}  `
                         } else if( pantryObj[ recipeItem.id ] && recipeItem.quantity.amount > pantryObj[ recipeItem.id ] ) {
                             ingredientText.innerText += 
-                            `${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name } - You need to purchase ${recipeItem.quantity.amount - pantryItem.amount} ${recipeItem.quantity.unit} of ${recipeItem.name}  `
+                            `${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name } - You need to purchase ${recipeItem.quantity.amount - pantryObj[ recipeItem.id ]} ${recipeItem.quantity.unit} of ${recipeItem.name}  `
                         } else if( pantryObj[ recipeItem.id ] && recipeItem.quantity.amount < pantryObj[ recipeItem.id ] ){
                             ingredientText.innerText +=
                             `${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name } - You have enough ${recipeItem.name}  `
@@ -498,16 +497,24 @@ function returnHome(  ) {
 }
 
 function showPantry( e ) {
-    pantryClass = new Pantry( currentUser )
-    pantryClass.getPantryItemsWithNames( ingredientList )
+    console.log('CURRENT USER: ', currentUser)
+    // recipeClass = new Recipe( recipeList, ingredientList );
+    // console.log(recipeClass)
+    pantryClass = new Pantry( currentUser.pantry, ingredientList )
+    pantryClass.getPantryItemsWithNames( currentUser.pantry, ingredientList )
+    // console.log('CURR PANT: ', pantryClass)
+    // console.log('PANTRYCLASS: ', pantryClass)
     if( e.target.innerText == 'View Your Pantry' ) {
         // newRecipe = new Recipe( item, ingredientList)
         recipeContainer.innerText = ""
-        pantryClass.currentUsersPantry.map( item => {
-                recipeContainer.innerText +=` ${ ( item.amount ).toFixed( 2 ) } ${ item.name } \n \n `}).join('')
+        currentUser.pantry.forEach( item => {
+            console.log('ITEM: ', item)
+
+                recipeContainer.innerText +=` ${ ( item.amount ).toFixed( 2 ) } ${ item.name.name } \n \n `}).join('')
     }
-        return result
+        // return result
 }
+
 
 // function handlePantryAndRecipeTotals ( e ) {
     //pantry functions used: getNeededIngredients( ) , getIngredientAmountNeeded( )

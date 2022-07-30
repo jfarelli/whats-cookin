@@ -2,6 +2,7 @@ import Recipe from '../classes/Recipe';
 
 class Pantry {
     constructor( pantryData, ingredientData ) {
+        // console.log('PANTRYDATA: ', pantryData.pantry)
         this.currentUsersPantry = pantryData.pantry;
         this.ingredientsList = ingredientData;  
     };
@@ -46,13 +47,38 @@ getIngredientAmountNeeded( recipe, ingredientData ) {
     return ingredientAmountNeeded
 }
 
+getPantryItemsWithNames( pantryItem , ingredientList ){
+    console.log('PANTRYITEM', pantryItem)
+    // console.log('INGREDIENTLIST', ingredientList)
+    let stuff = pantryItem.map( pantryIngredient => { 
+        // console.log('COMPARE: ', pantryIngredient.name = ingredientList.find( ing =>  pantryIngredient.ingredient === ing.id))
+        pantryIngredient.name = ingredientList.find( ing =>  pantryIngredient.ingredient === ing.id)
+        return pantryIngredient.name
+    });     
+    console.log('STUFF: ', stuff)
+    return stuff  
+    // console.log('CURR USERS PANTRY: ', this.currentUsersPantry)
+};
 
-getPantryItemsWithNames( recipe, ingredientList ) {
-    return recipe.ingredients.map( recipeIngredient => {
-        recipeIngredient.name = ingredientList.filter( ingredient => ingredient.id === recipeIngredient.id )[0].name
-        return recipeIngredient
-        } )
-    };      
+// getPantryItemsWithNames( userPantry, ingredientList ) {
+//     return userPantry.reduce( ( acc, userIngredient ) => {
+//         console.log('USERINGREDIENT BEFORE: ', userIngredient)
+//         ingredientList.forEach( ingredient => {
+//             if( !acc[ ingredient.name ] && ingredient.id === userIngredient.ingredient ) acc[ ingredient.name ]
+//             acc[ userIngredient.name ] = ingredient.name
+//         })
+//         // console.log('NEWARRAY: ', newArray)
+//         // return userIngredient
+//         console.log('USERINGREDIENT AFTER: ', userIngredient)
+//         return acc
+//         }, { } )
+//     };      
 };
   
   export default Pantry;
+
+//   if( ingredient.id === userIngredient.ingredient ) {
+//     userIngredient.name = ingredient.name
+// }
+// // console.log('USERINGREDIENT AFTER: ', userIngredient)
+// newArray.push( userIngredient )
