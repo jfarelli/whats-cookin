@@ -366,42 +366,77 @@ function displayAllRecipesOnPage( e ) {
 // };
 
 //displayRecipeInfo to require refactor with pantry information.
+// function displayRecipeInfo( e ){
+//     return newRecipe.recipes.map( dish  => {
+//         if( e.target.id == dish.id ){
+//             console.log("dish SELECTED: ", dish);
+//             recipeClass = new Recipe( dish, ingredientList );
+//             recipeClass.getIngredientsWithNames( dish.ingredients, ingredientList );
+//             pantryClass = new Pantry( currentUser, ingredientList );
+//             // console.log('PANTRYCLASS: ', pantryClass);
+//             pantryClass.getMissingIngredients( dish, ingredientList );
+//             pantryClass.getIngredientAmountNeeded( dish, ingredientList );
+//             pantryClass.getPantryItemsWithNames( dish, ingredientList );
+//             h4.innerText = dish.name; 
+//             totalCost.innerText = `Total Cost: $${ parseFloat( recipeClass.getCostOfIngredients( dish.ingredients, ingredientList ) * .01 ).toFixed( 2 ) }`;
+//             instructionText.innerText = dish.instructions.map( task => `${ task.number }: ${ task.instruction }` ).join( ' \n \n ' );
+//             ingredientText.innerText = dish.ingredients.map( recipeItem => { 
+//                 return pantryClass.currentUsersPantry.map( pantryItem => {
+//                     // console.log('PANTRITEM: ', pantryItem)
+//                     // console.log('COMPARE IDs: ', pantryItem.ingredient === recipeItem.id)
+//                     // console.log('RECIPEITEM: ', recipeItem)
+//                     // console.log('COMPARE AMOUNTSs: ', recipeItem.quantity.amount > pantryItem.amount)
+//                         if( pantryItem.ingredient != recipeItem.id ){
+//                             console.log(`HAVE ZERO INGREDIENT RETURN: `, `You don't have any ${recipeItem.name}. Purchase ${recipeItem.quantity.amount} ${recipeItem.quantity.unit}`)
+//                             return `You don't have any ${recipeItem.name}. Purchase ${recipeItem.quantity.amount} ${recipeItem.quantity.unit}`
+//                         } else if( pantryItem.ingredient == recipeItem.id && recipeItem.quantity.amount > pantryItem.amount ) {
+//                             // console.log('I DON\'T HAVE ENOUGH')
+//                             console.log('NO HAVE RETURN:',  `You need to purchase ${recipeItem.quantity.amount - pantryItem.amount} ${recipeItem.quantity.unit} of ${recipeItem.name}`)
+//                             return `You need to purchase ${recipeItem.quantity.amount - pantryItem.amount} ${recipeItem.quantity.unit} of ${recipeItem.name}`
+//                         } else if( pantryItem.ingredient == recipeItem.id && recipeItem.quantity.amount < pantryItem.amount ){
+//                             // console.log('I HAVE ENOUGH!')
+//                             console.log('HAVE RETURN: ', `You're covered on ${recipeItem.name}`)
+//                             return `You're covered on ${recipeItem.name}`
+//                         } 
+                        
+//                     // } )
+//                 } )
+      
+//             } ).join( `\n \n` );
+//         };
+//     });
+// }
+
 function displayRecipeInfo( e ){
     return newRecipe.recipes.map( dish  => {
         if( e.target.id == dish.id ){
-            console.log("dish SELECTED: ", dish);
             recipeClass = new Recipe( dish, ingredientList );
             recipeClass.getIngredientsWithNames( dish.ingredients, ingredientList );
             pantryClass = new Pantry( currentUser, ingredientList );
-            console.log('PANTRYCLASS: ', pantryClass);
             pantryClass.getMissingIngredients( dish, ingredientList );
             pantryClass.getIngredientAmountNeeded( dish, ingredientList );
             pantryClass.getPantryItemsWithNames( dish, ingredientList );
             h4.innerText = dish.name; 
             totalCost.innerText = `Total Cost: $${ parseFloat( recipeClass.getCostOfIngredients( dish.ingredients, ingredientList ) * .01 ).toFixed( 2 ) }`;
             instructionText.innerText = dish.instructions.map( task => `${ task.number }: ${ task.instruction }` ).join( ' \n \n ' );
-            ingredientText.innerText = dish.ingredients.map( recipeItem => { 
-
-                // return `${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name }`
-
-                let pantryKeys = Object.keys( pantryClass );
-                return pantryKeys.reduce( ( acc, pantryKey ) => {
-                    pantryClass[ pantryKey ].forEach( pantryIngredient => {
-                        // console.log('PANTRYINGREDIENT: ', pantryIngredient)
-                        if( recipeItem.quantity.amount > pantryIngredient.amount && pantryIngredient.id === recipeItem.id ) {
-                            console.log('I DON\'T HAVE ENOUGH')
-                            acc = `${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name } You need to purchase ${recipeItem.quantity.amount - pantryIngredient.amount} ${recipeItem.quantity.unit}`
-                        } else {
-                            console.log('I HAVE ENOUGH!')
-                            acc = `${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name }`
-                        }
-                    } )
-                    return acc
-                }, [ ] )
-      
-            } ).join( `\n \n` );
+            let pantryObj = pantryClass.currentUsersPantry.reduce( ( acc, pantryItem ) => {
+                acc[ pantryItem.ingredient ] = pantryItem.amount
+                return acc
+            }, { } )
+            return dish.ingredients.map( recipeItem => { 
+                        if( !pantryObj[ recipeItem.id ]){
+                            ingredientText.innerText += 
+                            `${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name } - You don't have any ${recipeItem.name}  `
+                        } else if( pantryObj[ recipeItem.id ] && recipeItem.quantity.amount > pantryObj[ recipeItem.id ] ) {
+                            ingredientText.innerText += 
+                            `${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name } - You need to purchase ${recipeItem.quantity.amount - pantryItem.amount} ${recipeItem.quantity.unit} of ${recipeItem.name}  `
+                        } else if( pantryObj[ recipeItem.id ] && recipeItem.quantity.amount < pantryObj[ recipeItem.id ] ){
+                            ingredientText.innerText +=
+                            `${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name } - You have enough ${recipeItem.name}  `
+                        } 
+            } )
         };
-    });
+    } );
 }
 
 function saveRecipeToRecipesToCook ( e ) {
