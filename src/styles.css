@@ -42,8 +42,16 @@ h4 {
   color:white;
   font-size: 36px;
   margin: 0;
-  margin-top: 40px;
+  margin-top: 2%;
   text-shadow: 2px 3px rgba( 0, 0, 0, 0.6 );
+}
+.modal-title-and-cost-container {
+  height: 20vh;
+  margin-right: 25%;
+  margin-bottom: 6%;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 h5 {
@@ -59,8 +67,6 @@ input {
   height: 30px;
   overflow: visible;
   text-align: center;
-  /* text-overflow: ellipsis; */
-  /* width: 40px; */
   white-space: nowrap;
 }
 
@@ -99,12 +105,13 @@ form {
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  position:absolute;
-  margin-top: 1%;
-  /* min-width: 15rem; */
-  /* top: 2%; */
-  right: 1%;
-  transform: translateX(175%);
+  flex-wrap: wrap;
+  width: 15vw;
+  height: 20vh;
+  contain: content;
+  position: absolute;
+  right: 3%;
+  padding: 3px;
 }
 
 /* // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ POST DATA STYLING ON MODAL ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
@@ -126,12 +133,13 @@ label {
   height: 29vh;
   margin: 0%, 0%, 0%, 0%;
   position: fixed;
+  white-space: wrap;
 }
 
 .nav-search-container, .nav-input-search-container {
   display: flex;
   align-self: baseline;
-  justify-content: flex-end;
+  justify-content: space-around;
   margin: 0px;
   width: 100vw;
 }
@@ -161,13 +169,11 @@ label {
 
 .nav-button-container {
   display: flex;
-  align-content: space-between;
-  align-items: center;
+  justify-content: center;
   align-self: center;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: space-evenly;
-  width: 25%;
+  flex-wrap: wrap;
+  width: 30%;
+  gap: 7%;
 }
 
 .grid-container {
@@ -220,7 +226,7 @@ label {
   border: 1px solid black;
   border-radius: 10px;
   display: none;
-  height: 90%;
+  height: 100%;
   left: 50%;
   position: fixed;
   text-align: center;
@@ -247,7 +253,10 @@ label {
 }
 
 .ingredient-and-direction-container {
+  margin-top: 4%;
   display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: rgba( 211, 211, 211, 0.55 );
   border: 1px solid rgba( 0, 0, 0, 0.7 );
   background-image: linear-gradient( rgba( 0, 0, 0, 0.4 ),rgba( 0, 0, 0, 0.4 ) ), url( './images/nav-background.jpg' );
@@ -258,11 +267,15 @@ label {
 }
 
 #modal-1-content {
+  display: flex;
+  padding: 3%;
   background-image: linear-gradient( rgba( 0, 0, 0, 0.4 ), rgba( 0, 0, 0, 0.4 ) ), url( './images/nav-background.jpg' );
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   flex-wrap: wrap;
+  contain: content;
+  justify-content: center;
 }
 
 /* // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv POST DATA STYLING ON MODAL vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv */
@@ -271,25 +284,15 @@ label {
   display: flex;
   align-items:center;
   align-self: center;
-  /* flex-wrap: wrap; */
-  /* height: 30px; */
-  /* overflow: visible; */
   text-align: center;
   height: 15px;
   margin: 3px;
-  /* text-overflow: ellipsis; */
-  /* min-width: 40px; */
-  /* white-space: nowrap; */
 }
 
 .input-quantity {
   display: flex;
-  /* align-items:center; */
   align-self: center;
   text-align: center;
-  /* flex-wrap: wrap; */
-  /* height: 30px; */
-  /* overflow: visible; */
   text-align: center;
   height: 15px;
   width: 50%; 
@@ -299,15 +302,12 @@ label {
 .submit-button {
   display: flex;
   align-self: center;
-  /* margin-top: 3px; */
   background-color: rgba( 211, 211, 211, 0.75 );
   border: 1px ridge rgba( 0, 0, 0, 0.4 );
   border-radius: 5px;
   box-shadow: 0 1px 2px rgba( 0, 0, 0 );
   color: rgba( 0, 0, 0, 0.9 );
   margin-top: 1%;
-  /* contain: content;
-  text-overflow: contain; */
   height: 10%;
 }
 
@@ -320,7 +320,7 @@ label {
 
 .what-ingredients {
   color: white;
-  font-size: 15px;
+  font-size: 20px;
   text-shadow: 2px 2px rgba( 0, 0, 0, 0.6 );
   margin: 0;
   margin-bottom: 5px;
@@ -331,8 +331,9 @@ label {
 
 .ingredient-list, .cooking-directions {
   background-color: rgba( 255, 255, 255, 0.95 );
-  display: flex;
+  /* display: flex;
   flex-direction: column;
+  margin-bottom: 2%; */
 }
 
 /* From Maia mid-width, align-content, alignt-items, & flex-wrap were commented out
@@ -354,21 +355,25 @@ label {
 } */
 
 .modal-ingredients, .modal-instructions {
-  align-content: center;
-  align-items: center;
+  /* min-width: 50vw; */
+  /* align-content: center;
+  align-items: center; */
   background-color: rgba( 255, 255, 255, 0.95 );
   border: 2px solid rgba( 0, 0, 0, 0.5 );
-  contain: content;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-  height: 55vh;
-  justify-content: flex-start;
-  overflow: clip scroll;
-  width: 33vw; 
+  /* flex-wrap: wrap; */
+  height: 40vh;
+  justify-content: center;
+  contain: content;
+  white-space: wrap; 
+  overflow: scroll;
+  width: 33vw;
 }
 
 .dish-cost {
+  display: flex;
+  justify-content: center;
   color:white;
   font-size: 25px;
   font-weight: bold;
@@ -395,7 +400,10 @@ label {
 }
 
 #closeModal {
-  margin-top: 23px;
+ padding: 1%;
+ margin-left: 40%;
+ margin-bottom: 2%;
+ float: inline-start;
 }
 
 .hidden {
