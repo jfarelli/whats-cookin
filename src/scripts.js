@@ -49,68 +49,15 @@ window.addEventListener( 'load', loadData );
 searchButton.addEventListener( "click", searchRecipe );
 recipeContainer.addEventListener( 'click' , displayRecipeInfo );
 navViewProfileButton.addEventListener( 'click' , showCookingProfile );
-pantryButton.addEventListener( 'click', showPantry );
+pantryButton.addEventListener( 'click', (e) => {
+    showPantry(e)
+} );
 
 recipeCardGridContainer.addEventListener( 'click', ( e ) => {
     if ( e.target.classList == 'save-button' ) {
-        // let btn = document.getElementsByClassName('save-button');
-        // for (var i = 0; i < btn.length; i++) {
-        //     (function (index) {
-        //     //   btn[index].addEventListener("click", function () {
-        //         // console.log("Clicked Button: " + index);
-      
-        //         let isPresent = false;
-      
-        //         //   Check if the class is present or not
-        //         this.classList.forEach(function (e, i) {
-        //           if (e == 'save-button') {
-        //             isPresent = true;
-        //           } else {
-        //             isPresent = false;
-        //           }
-        //         });
-      
-        //         //   toggle the presence of class on the basis of the isPresent variable
-        //         if (isPresent) {
-        //           this.classList.remove("button-focus");
-        //         } else {
-        //           this.classList.add("button-focus");
-        //         }
-        //     //   });
-        //     })(i);
-        //   }
         return saveRecipeToRecipesToCook( e );
     };
 } );
-
-
-// let btn = document.getElementsByClassName("btn");
-
-//     for (var i = 0; i < btn.length; i++) {
-//       (function (index) {
-//         btn[index].addEventListener("click", function () {
-//           console.log("Clicked Button: " + index);
-
-//           let isPresent = false;
-
-//           //   Check if the class is present or not
-//           this.classList.forEach(function (e, i) {
-//             if (e == "button-focus") {
-//               isPresent = true;
-//             } else {
-//               isPresent = false;
-//             }
-//           });
-
-//           //   toggle the presence of class on the basis of the isPresent variable
-//           if (isPresent) {
-//             this.classList.remove("button-focus");
-//           } else {
-//             this.classList.add("button-focus");
-//           }
-//         });
-//       })(i);
-//     }
 
 recipeCardGridContainer.addEventListener( 'click', ( e ) => {
     if ( e.target.classList == 'remove-button' ) {
@@ -137,7 +84,6 @@ searchInput.addEventListener("keypress", function(event) {
   }
 });
 
-
 // DOM MANIPULATION <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 function loadData( ) {
     Promise.all( [ getData( 'users' ), getData( 'recipes' ), getData( 'ingredients' ) ] ).then( data => {
@@ -151,8 +97,7 @@ function loadData( ) {
         pantryClass = new Pantry( currentUser, ingredientList )
         displayRandomUserName( );
         displayAllRecipesOnPage( );
-        displayUserInfoForPost( )
-        console.log('CURRENT USER in PROMISE: ', currentUser)
+        displayUserInfoForPost( );
         } );
 }
 
@@ -167,7 +112,6 @@ function displayRandomUserName( ) {
  
  function displayUserInfoForPost( ) {
      whatIngredientsDoYouNeed.innerText = `What Ingredients \n Do You Need, \n ${ currentUser.name.split( ' ' )[ 0 ] }?`;
-     // document.getElementsByName('user-id')[0].placeholder = `${ currentUser.id }`;
  }
  
  let postTripInputButton = document.querySelector( '.form-input-container' );
@@ -180,28 +124,22 @@ function displayRandomUserName( ) {
      let postUserIngredients = postData( updatedUser );
      let fetchMeThatPromise = getData( 'users' );
      Promise.all( [ postUserIngredients, fetchMeThatPromise ] ).then( response => {
-         console.log('RESPONSE RETURNED from PROMISE after POST: ', response[ 1 ])
          pantryClass = new Pantry( response[ 1 ] );
-     } )
-         .catch( error => console.log( error ) )
+     } ).then( getData('users').then(data => currentUser = data.find( userData => userData.id === currentUser.id)
+        ))
+        .catch( error => console.log( error ) )
  };
  
- 
  function getPostedUserDataFromForm( event ) {
-     console.log('CURRENTUSER.PANTRY BEFORE: ', currentUser.pantry)
-     
      postedUserData = new FormData( event.target ); 
      let updateUserPantry = {
          userID: currentUser.id,
          ingredientID: parseFloat( postedUserData.get('ingredient-id') ), 
-         // currentUser.pantry.find( ingredient => ingredient.id === event),
          ingredientModification: parseFloat( postedUserData.get('ingredient-amount') ), 
      };
-     // event.reset( );
-     console.log('DATA FROM FORM INPUTS: ', updateUserPantry)
+     event.target.reset( );
      return updateUserPantry
  }
- 
  
  // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ POST DATA ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -222,8 +160,7 @@ function searchRecipe( e ) {
     } else {
         return displayAllRecipesOnPage( );
     }
-  }
-
+}
 
 function filterCookProf( ) {
     const tagSearched = currentUser.filterRecipesToCookByTag( searchBox.value );
@@ -261,7 +198,6 @@ function filterCookProf( ) {
     }
 }
 
-
 function displayFilteredRecipesByTagOnPage( ) {
     const result = matchingTagConditions.map( recipe => {
         return `<section class='recipe-card' id=${ recipe.id }>
@@ -277,7 +213,6 @@ function displayFilteredRecipesByTagOnPage( ) {
         return recipeContainer.innerHTML = result;
 }
 
-
 function displayFilteredRecipesByNameOnPage( ) {
     const result = matchingNameConditions.map( recipe => {
         return `<section class='recipe-card' id=${recipe.id}>
@@ -292,7 +227,6 @@ function displayFilteredRecipesByNameOnPage( ) {
     matchingNameConditions = recipeContainer;
         return recipeContainer.innerHTML = result;
 }
-
 
 function displayAllRecipesOnPage( e ) {
     let recipeCards = recipeContainer;
@@ -310,103 +244,6 @@ function displayAllRecipesOnPage( e ) {
     return recipeCards.innerHTML = result;
 };
 
-// function displayRecipeInfo( e ){
-//     // let recipeForModal;
-
-//     // newRecipe = new RecipeRepository( recipeList );
-//     // pantryClass = new Pantry( currentUser )
-
-//     // recipeForModal = newRecipe.recipes.map( modalDish => {
-//     //     if(e.target.id == modalDish.id){
-
-//     //     }
-//     // })
-//     // console.log('newRecipe.RECIPES', newRecipe.recipes)
-//     newRecipe.recipes.map( dish  => {
-//         // console.log("Iterating through all recipes in scripts: ", dish);
-//         if( e.target.id == dish.id ){
-//             console.log("dish SELECTED in scripts: ", dish);
-//             recipeClass = new Recipe( dish, dish.ingredients );
-//             recipeClass.getIngredientsWithNames( dish.ingredients, ingredientList );
-//             pantryClass = new Pantry( currentUser.pantry, ingredientList )
-//             pantryClass.getNeededIngredients( dish, ingredientList )
-//             pantryClass.getIngredientAmountNeeded( dish, ingredientList )
-//             pantryClass.getPantryItemsWithNames( ingredientList )
-//             h4.innerText = dish.name; 
-//             totalCost.innerText = `Total Cost: $${ parseFloat( recipeClass.getCostOfIngredients( dish.ingredients, ingredientList ) * .01 ).toFixed( 2 ) }`;
-//             instructionText.innerText = dish.instructions.map( task => `${ task.number }: ${ task.instruction }` ).join( ' \n \n ' );
-//             ingredientText.innerText = dish.ingredients.map( (foodItem) => {
-//                 // this code is slightly functional and could use refactor until.
-//                 // console.log('INDEX: ', index)
-//                 // console.log('FOODITEM ( Scripts ): ', foodItem)
-//                 let interpolateMissingIngr;
-//                 console.log('PANTRYCLASS: ', pantryClass)
-//                 let pantryKeys = Object.keys( pantryClass )
-//                 console.log('PANTRYKEYS: ', pantryKeys)
-//                 return pantryKeys.reduce( ( acc, key ) => {
-//                     console.log('PANTRYCLASS[key]: ', pantryClass[key])
-//                     console.log('KEY ( Scripts ): ', key)
-//                     pantryClass[ key ].forEach( item => {
-//                         // console.log('ITEM within pantryclass[ key ]: ', item)
-//                         // console.log('FOODITEM within pantryclass[ key ]: ', foodItem)
-//                         if(item.id === foodItem.id){
-//                             interpolateMissingIngr = `You need to purchase ${foodItem.quantity.amount} ${foodItem.quantity.unit}`
-//                             return interpolateMissingIngr
-//                         }
-                        
-//                     } ) `  ${ ( foodItem.quantity.amount ).toFixed( 2 ) } ${ foodItem.quantity.unit } ${ foodItem.name }`
-                    
-//                     return acc
-//                 }, [ ] )
-                
-//             }).join( ' \n \n ');
-            
-//         };    
-//     });
-// };
-
-//displayRecipeInfo to require refactor with pantry information.
-// function displayRecipeInfo( e ){
-//     return newRecipe.recipes.map( dish  => {
-//         if( e.target.id == dish.id ){
-//             console.log("dish SELECTED: ", dish);
-//             recipeClass = new Recipe( dish, ingredientList );
-//             recipeClass.getIngredientsWithNames( dish.ingredients, ingredientList );
-//             pantryClass = new Pantry( currentUser, ingredientList );
-//             // console.log('PANTRYCLASS: ', pantryClass);
-//             pantryClass.getMissingIngredients( dish, ingredientList );
-//             pantryClass.getIngredientAmountNeeded( dish, ingredientList );
-//             pantryClass.getPantryItemsWithNames( dish, ingredientList );
-//             h4.innerText = dish.name; 
-//             totalCost.innerText = `Total Cost: $${ parseFloat( recipeClass.getCostOfIngredients( dish.ingredients, ingredientList ) * .01 ).toFixed( 2 ) }`;
-//             instructionText.innerText = dish.instructions.map( task => `${ task.number }: ${ task.instruction }` ).join( ' \n \n ' );
-//             ingredientText.innerText = dish.ingredients.map( recipeItem => { 
-//                 return pantryClass.currentUsersPantry.map( pantryItem => {
-//                     // console.log('PANTRITEM: ', pantryItem)
-//                     // console.log('COMPARE IDs: ', pantryItem.ingredient === recipeItem.id)
-//                     // console.log('RECIPEITEM: ', recipeItem)
-//                     // console.log('COMPARE AMOUNTSs: ', recipeItem.quantity.amount > pantryItem.amount)
-//                         if( pantryItem.ingredient != recipeItem.id ){
-//                             console.log(`HAVE ZERO INGREDIENT RETURN: `, `You don't have any ${recipeItem.name}. Purchase ${recipeItem.quantity.amount} ${recipeItem.quantity.unit}`)
-//                             return `You don't have any ${recipeItem.name}. Purchase ${recipeItem.quantity.amount} ${recipeItem.quantity.unit}`
-//                         } else if( pantryItem.ingredient == recipeItem.id && recipeItem.quantity.amount > pantryItem.amount ) {
-//                             // console.log('I DON\'T HAVE ENOUGH')
-//                             console.log('NO HAVE RETURN:',  `You need to purchase ${recipeItem.quantity.amount - pantryItem.amount} ${recipeItem.quantity.unit} of ${recipeItem.name}`)
-//                             return `You need to purchase ${recipeItem.quantity.amount - pantryItem.amount} ${recipeItem.quantity.unit} of ${recipeItem.name}`
-//                         } else if( pantryItem.ingredient == recipeItem.id && recipeItem.quantity.amount < pantryItem.amount ){
-//                             // console.log('I HAVE ENOUGH!')
-//                             console.log('HAVE RETURN: ', `You're covered on ${recipeItem.name}`)
-//                             return `You're covered on ${recipeItem.name}`
-//                         } 
-                        
-//                     // } )
-//                 } )
-      
-//             } ).join( `\n \n` );
-//         };
-//     });
-// }
-
 function displayRecipeInfo( e ){
     return newRecipe.recipes.map( dish  => {
         if( e.target.id == dish.id ){
@@ -422,17 +259,16 @@ function displayRecipeInfo( e ){
                 return acc
             }, { } )
             return dish.ingredients.map( recipeItem => { 
-                console.log('pantryObj[ recipeItem.id ]', pantryObj[ recipeItem.id ])
-                        if( !pantryObj[ recipeItem.id ]){
-                            ingredientText.innerText += 
-                            `${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name } - You don't have any ${recipeItem.name}  `
-                        } else if( pantryObj[ recipeItem.id ] && recipeItem.quantity.amount > pantryObj[ recipeItem.id ] ) {
-                            ingredientText.innerText += 
-                            `${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name } - You need to purchase ${recipeItem.quantity.amount - pantryObj[ recipeItem.id ]} ${recipeItem.quantity.unit} of ${recipeItem.name}  `
-                        } else if( pantryObj[ recipeItem.id ] && recipeItem.quantity.amount < pantryObj[ recipeItem.id ] ){
-                            ingredientText.innerText +=
-                            `${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name } - You have enough ${recipeItem.name}  `
-                        } 
+                if( !pantryObj[ recipeItem.id ]){
+                    ingredientText.innerText += 
+                    `${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name } - You don't have any ${recipeItem.name}  `
+                } else if( pantryObj[ recipeItem.id ] && recipeItem.quantity.amount > pantryObj[ recipeItem.id ] ) {
+                    ingredientText.innerText += 
+                    `${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name } - You need to purchase ${recipeItem.quantity.amount - pantryObj[ recipeItem.id ]} ${recipeItem.quantity.unit} of ${recipeItem.name}  `
+                } else if( pantryObj[ recipeItem.id ] && recipeItem.quantity.amount < pantryObj[ recipeItem.id ] ){
+                    ingredientText.innerText +=
+                    `${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name } - You have enough ${recipeItem.name}  `
+                } 
             } )
         };
     } );
@@ -469,19 +305,6 @@ function showCookingProfile( e ) {
     }
 }
 
-
-
-// function deleteRecipeFromRecipesToCook( e ) { 
-//     if( e.target.classList.contains( "remove-button" ) ) {
-//         newRecipe.recipes.forEach( removeDish => {
-//             ;
-//             return currentUser.removeRecipeFromRecipesToCook( removeDish );
-//         } )  
-//         // console.log("outside function",currentUser.recipesToCook)
-//     };
-//     return currentUser.recipesToCook;
-// }
-
 function deleteRecipeFromRecipesToCook(e){
     if (e.target.classList.contains( "remove-button" )) {
         e.target.closest( 'section' ).remove( )
@@ -497,31 +320,11 @@ function returnHome(  ) {
 }
 
 function showPantry( e ) {
-    console.log('CURRENT USER: ', currentUser)
-    // recipeClass = new Recipe( recipeList, ingredientList );
-    // console.log(recipeClass)
     pantryClass = new Pantry( currentUser.pantry, ingredientList )
     pantryClass.getPantryItemsWithNames( currentUser.pantry, ingredientList )
-    // console.log('CURR PANT: ', pantryClass)
-    // console.log('PANTRYCLASS: ', pantryClass)
     if( e.target.innerText == 'View Your Pantry' ) {
-        // newRecipe = new Recipe( item, ingredientList)
         recipeContainer.innerText = ""
         currentUser.pantry.forEach( item => {
-            console.log('ITEM: ', item)
-
-                recipeContainer.innerText +=` ${ ( item.amount ).toFixed( 2 ) } ${ item.name.name } \n \n `}).join('')
+            recipeContainer.innerText +=` ${ ( item.amount ).toFixed( 2 ) } ${ item.name.name } \n \n `} )
     }
-        // return result
 }
-
-
-// function handlePantryAndRecipeTotals ( e ) {
-    //pantry functions used: getNeededIngredients( ) , getIngredientAmountNeeded( )
-    // dom manipulation to occur in the modal-related function
-    //display check mark emoji if there is enough of the ingredient
-    //display red x emoji if there is not enough
-    //display the ingredient amount needed if there is not enough in pantry. maybe a <p> tag or something.\
-    // pantryClass = new Pantry( currentUser )
-
-// }

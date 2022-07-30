@@ -55,7 +55,7 @@ getPantryItemsWithNames( pantryItem , ingredientList ){
         pantryIngredient.name = ingredientList.find( ing =>  pantryIngredient.ingredient === ing.id)
         return pantryIngredient.name
     });     
-    console.log('STUFF: ', stuff)
+    // console.log('STUFF: ', stuff)
     return stuff  
     // console.log('CURR USERS PANTRY: ', this.currentUsersPantry)
 };
