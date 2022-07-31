@@ -44,6 +44,8 @@ let navViewProfileButton = document.querySelector( '.view-profile-button' );
 let searchInput = document.getElementById("searchInput");
 let pantryButton = document.querySelector('.view-pantry-button')
 
+let letsCookButton = document.querySelector( '.lets-cook-button' );
+
 // EVENT LISTENERS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 window.addEventListener( 'load', loadData );
 searchButton.addEventListener( "click", searchRecipe );
@@ -90,7 +92,8 @@ function loadData( ) {
         userList = data[ 0 ];
         recipeList = data[ 1 ];
         ingredientList = data[ 2 ];
-        currentUser = new User( userList[ Math.floor( Math.random( ) * userList.length ) ] );
+        // currentUser = new User( userList[ Math.floor( Math.random( ) * userList.length ) ] );
+        currentUser = new User( userList[ 30 ] );
         ingredientClass = new Ingredient( ingredientList.map(ingredient => ingredient.id), ingredientList.map(ingredient => ingredient.name ), ingredientList.map( ingredient =>  ingredient.estimatedCostInCents ) );
         recipeClass = new Recipe( recipeList, ingredientList );
         recipeRepository = new RecipeRepository( recipeList );
@@ -244,6 +247,8 @@ function displayAllRecipesOnPage( e ) {
     return recipeCards.innerHTML = result;
 };
 
+
+
 function displayRecipeInfo( e ){
     ingredientText.innerText = ''
     return newRecipe.recipes.map( dish  => {
@@ -260,20 +265,52 @@ function displayRecipeInfo( e ){
                 return acc
             }, { } )
             return dish.ingredients.map( recipeItem => { 
+                let doIHaveEnoughIngredients = dish.ingredients.every( recipeIngredient => recipeIngredient.quantity.amount <= pantryObj[ recipeIngredient.id ] )
+                // console.log('RECIPEINGREDIENT.QUANTITY.AMOUNT: ', recipeIngredient.quantity.amount)
+                // console.log('PANTRYOBJ[RECIPEINGREDIENT.ID]: ', pantryObj[ recipeIngredient.id ])
+                console.log('DO I HAVE: ', doIHaveEnoughIngredients)
+                if( doIHaveEnoughIngredients ) {
+                    letsCookButton.hidden = false;
+                    // console.log('pantryObj', pantryObj)
+                    // console.log('recipeItem', recipeItem)
+                    console.log('I HAVE EVERYTHING')
+                    // console.log('DO I HAVE EVERYTHING: ', dish.ingredients.every( recipeItem.quantity.amount < pantryObj[ recipeItem.id ]))
+                    // console.log('DO I HAVE EVERYTHING', pantryObj.every( recipeItem.quantity.amount < pantryObj[ recipeItem.id ] ) )
+                    // need to see if every recipeItem.quantity.amount is less that the pantryObj[recipeItem.id]
+                } else {
+                    letsCookButton.hidden = true;
+                    console.log('I NO HAVE EVERYTHING!')
+                }
                 if( !pantryObj[ recipeItem.id ]){
                     ingredientText.innerText += 
-                    `${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name } - You don't have any ${recipeItem.name}  `
+                    `\n \n[   ${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name } - You don't have any ${ recipeItem.name }   ]\n \n`
                 } else if( pantryObj[ recipeItem.id ] && recipeItem.quantity.amount > pantryObj[ recipeItem.id ] ) {
                     ingredientText.innerText += 
-                    `${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name } - You need to purchase ${recipeItem.quantity.amount - pantryObj[ recipeItem.id ]} ${recipeItem.quantity.unit} of ${recipeItem.name}  `
+                    `\n \n[   ${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name } - You need to purchase ${ recipeItem.quantity.amount - pantryObj[ recipeItem.id ]} ${ recipeItem.quantity.unit } of ${ recipeItem.name }    ]\n \n`
                 } else if( pantryObj[ recipeItem.id ] && recipeItem.quantity.amount < pantryObj[ recipeItem.id ] ){
                     ingredientText.innerText +=
-                    `${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name } - You have enough ${recipeItem.name}  `
+                    `\n \n[   ${ recipeItem.quantity.amount } ${ recipeItem.quantity.unit } ${ recipeItem.name } - You have enough ${recipeItem.name}    ]\n \n`
                 } 
+                
             } )
         };
     } );
 }
+
+// vvvvvvvvvvvvvvvvvvvvvvvv ADDING 'LET'S COOK' BUTTON TO MODAL vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
+
+// letsCookButton.addEventListener( 'click', letsCookTheRecipe );
+
+// function letsCookTheRecipe( ) {
+//     if(){
+//         !letsCookButton.disabled
+//     } else {
+//         letsCookButton.disabled
+//     }
+// }
+
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 function saveRecipeToRecipesToCook ( e ) {
     return newRecipe.recipes.filter( favoriteDish => {
