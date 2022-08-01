@@ -91,8 +91,7 @@ function loadData( ) {
         userList = data[ 0 ];
         recipeList = data[ 1 ];
         ingredientList = data[ 2 ];
-        currentUser = new User( userList[ 30 ] );
-        // currentUser = new User( userList[ Math.floor( Math.random( ) * userList.length ) ] );
+        currentUser = new User( userList[ Math.floor( Math.random( ) * userList.length ) ] );
         ingredientClass = new Ingredient( ingredientList.map(ingredient => ingredient.id), ingredientList.map(ingredient => ingredient.name ), ingredientList.map( ingredient =>  ingredient.estimatedCostInCents ) );
         recipeClass = new Recipe( recipeList, ingredientList );
         recipeRepository = new RecipeRepository( recipeList );
