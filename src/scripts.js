@@ -92,7 +92,6 @@ function loadData( ) {
         recipeList = data[ 1 ];
         ingredientList = data[ 2 ];
         currentUser = new User( userList[ Math.floor( Math.random( ) * userList.length ) ] );
-        console.log('CURRENTUSE: ', currentUser)
         ingredientClass = new Ingredient( ingredientList.map(ingredient => ingredient.id), ingredientList.map(ingredient => ingredient.name ), ingredientList.map( ingredient =>  ingredient.estimatedCostInCents ) );
         recipeClass = new Recipe( recipeList, ingredientList );
         recipeRepository = new RecipeRepository( recipeList );
@@ -265,10 +264,7 @@ function displayRecipeInfo( e ){
                     letsCookButton.hidden = false;
                     youNeedMorePrompt.innerText = "You have all the ingredients.  Let's cook!"
                     letsCookButton.addEventListener( 'click', ( ) => {
-                        letsCookButton.hidden = true
-
-                        // youNeedMorePrompt.innerText = `Get more Ingredients to Cook this!`
-                        
+                        letsCookButton.hidden = true                       
                         return currentUser.pantry.map( pantryItem => {
                             if( pantryItem.ingredient === recipeItem.id ) {
                                 return pantryItem.amount = pantryItem.amount - recipeItem.quantity.amount
@@ -345,7 +341,6 @@ function showPantry( e ) {
     if( e.target.innerText == 'View Your Pantry' ) {
         recipeContainer.innerText = ""
         currentUser.pantry.forEach( item => {
-            console.log('ITEM: ', item)
             recipeContainer.innerText +=` ${ ( item.amount ).toFixed( 2 ) } ${ item.name.name } \n \n `} )
     }
 }

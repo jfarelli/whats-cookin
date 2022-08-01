@@ -92,8 +92,6 @@ button:active {
   transform: translateY( 1px );
 }
 
-/* // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv POST DATA STYLING ON MODAL vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv */
-
 form {
   display: flex;
   flex-direction: column;
@@ -107,8 +105,6 @@ form {
   right: 3%;
   padding: 3px;
 }
-
-/* // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ POST DATA STYLING ON MODAL ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
 
 label {
   margin-bottom: 3px;
@@ -149,12 +145,6 @@ label {
   margin-right: 4%;
   width: 1vw relative;
 }
-
-/* .save-button {
-  background-color: rgba( 141, 182, 0, 0.65 );
-  pointer-events: none;
-  cursor:not-allowed;
-} */
 
 .recipe-search {
   border: 1px solid gray;
@@ -248,7 +238,6 @@ label {
 }
 
 .ingredient-and-direction-container {
-  /* margin-top: 4%; */
   display: flex;
   flex-direction: row;
   justify-content:center;
@@ -263,7 +252,6 @@ label {
 
 #modal-1-content {
   display: flex;
-  /* padding: 3%; */
   background-image: linear-gradient( rgba( 0, 0, 0, 0.4 ), rgba( 0, 0, 0, 0.4 ) ), url( './images/nav-background.jpg' );
   background-position: center;
   background-repeat: no-repeat;
@@ -272,8 +260,6 @@ label {
   contain: content;
   justify-content: center;
 }
-
-/* // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv POST DATA STYLING ON MODAL vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv */
 
 .input-user-id, .input-ingredient-id {
   display: flex;
@@ -321,9 +307,6 @@ label {
   margin-bottom: 5px;
 }
 
-
-/* // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ POST DATA STYLING ON MODAL ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
-
 .ingredient-list, .cooking-directions {
   background-color: rgba( 255, 255, 255, 0.95 );
   display: flex;
@@ -343,7 +326,6 @@ label {
   border: 2px solid rgba( 0, 0, 0, 0.5 );
   display: flex;
   flex-direction: column;
-  /* flex-wrap: wrap; */
   height: 40vh;
   justify-content: center;
   contain: content;
