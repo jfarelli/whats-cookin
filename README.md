@@ -82,6 +82,10 @@
 
 * `saveRecipeToRecipesToCook` looks at the event target id of the button clicked.  In `displayAllRecipesOnPage()`, we assigned the html ID of each recipe card to be the recipe ID.  When iterating through all recipes on page, if the target ID matched, it would push the recipe to the User's `recipesToCook` array. This array is then iterated through downstream when the user interacts with their cooking profile.
 
+* `displayRecipeInfo` populates the modal with the ingredients needed for the recipe alongside the instructions needed to cook it.  It also calculates whether or not the user has the required ingredients to cook the recipe.  A warning message will pop up to notify you if you don't.  If you have everything, a button will populate that takes out the ingredient totals from your pantry and update.  
+ 
+* `displayIngredientsInDropDown` was a way to attach the ingredient name that the user wishes to add to their pantry.  Before, the only way to do this was to add an ID number, which could be confusing from a UX perspective.  This avoids some confusion and prevents a blank form being entered.
+  
 </details><br>
 
 ### Challenges: <a name="challenges"></a> <br>
@@ -112,7 +116,7 @@
 
 * It would be cool to create an option for a user to log in and store their favorites to local storage.
 
-* Changing saved recipes view so that recipe cards populate in the middle of the page and then move outward instead of the opposite.
+* Chan\ging saved recipes view so that recipe cards populate in the middle of the page and then move outward instead of the opposite.
 
 * Expand the filtering functionality to include multiple tags and search by name and ingredients.
 
