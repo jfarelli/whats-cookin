@@ -29,9 +29,8 @@
               <button class="close-button" aria-label="Close modal" id="closeModal" data-micromodal-close>Close</button>
               <form class="form-input-container">
                 <label class="what-ingredients" for="user-id">What Ingredients Do You Need?</label>
-                <!-- <input id="user-id" type ="text" name="user-id" placeholder="Input User ID" class="input-user-id" required> -->
-                <label for="ingredient-id" class="hidden"></label>
-                <input id="ingredient-id" type ="text" name="ingredient-id" placeholder="Input Ingredient ID" class="input-ingredient-id" required>
+                <label for="ingredientID" class="hidden">Ingredients</label>
+                <select id="ingredientID" name="ingredientID" required></select>
                 <label for="ingredient-amount" class="hidden"></label>
                 <input id="ingredient-amount" type ="number" name="ingredient-amount" placeholder="Quantity" class="input-quantity" step="0.25" min="0" max="100" required>
                 <input type="submit" value="Add to Pantry" class="submit-button" id="postTripSubmit">

@@ -368,6 +368,12 @@ label {
   align-self: center;
 }
 
+#ingredientID {
+  width: 50%;
+  align-self: center;
+  text-align: center;
+}
+
 #overlay {
   background-color: rgba( 0, 0, 0, 0.7 );
   bottom: 0;

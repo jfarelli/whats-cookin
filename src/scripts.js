@@ -44,7 +44,8 @@ let navViewProfileButton = document.querySelector( '.view-profile-button' );
 let searchInput = document.getElementById("searchInput");
 let pantryButton = document.querySelector('.view-pantry-button')
 let letsCookButton = document.querySelector( '.lets-cook-button' );
-let youNeedMorePrompt = document.getElementById('youNeedMore')
+let youNeedMorePrompt = document.getElementById('youNeedMore');
+let ingredientsDropDownMenu = document.getElementById('ingredientID');
 
 // EVENT LISTENERS <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 window.addEventListener( 'load', loadData );
@@ -91,7 +92,8 @@ function loadData( ) {
         userList = data[ 0 ];
         recipeList = data[ 1 ];
         ingredientList = data[ 2 ];
-        currentUser = new User( userList[ Math.floor( Math.random( ) * userList.length ) ] )
+        currentUser = new User( userList[ Math.floor( Math.random( ) * userList.length ) ] );
+        console.log('CURRENTUSE: ', currentUser)
         ingredientClass = new Ingredient( ingredientList.map(ingredient => ingredient.id), ingredientList.map(ingredient => ingredient.name ), ingredientList.map( ingredient =>  ingredient.estimatedCostInCents ) );
         recipeClass = new Recipe( recipeList, ingredientList );
         recipeRepository = new RecipeRepository( recipeList );
@@ -99,6 +101,7 @@ function loadData( ) {
             displayRandomUserName( );
             displayAllRecipesOnPage( );
             displayUserInfoForPost( );
+            displayIngredientsInDropDown( );
         } );
 }
 
@@ -119,11 +122,14 @@ let postTripInputButton = document.querySelector( '.form-input-container' );
 
 function getUpdatedUserIngredientsFromPost( event ) {
     event.preventDefault( );
+    console.log('EVENT.TARGET: ', event.target)
+    displayIngredientsInDropDown(  );
     let updatedUser = getPostedUserDataFromForm( event );
     let postUserIngredients = postData( updatedUser );
     let fetchMeThatPromise = getData( 'users' );
         Promise.all( [ postUserIngredients, fetchMeThatPromise ] )
         .then( response => {
+            console.log('RESPONSE: ', response)
             pantryClass = new Pantry( response[ 1 ] );
         } )
         .then( getData('users').then(data => currentUser = data.find( userData => userData.id === currentUser.id)
@@ -135,7 +141,7 @@ function getPostedUserDataFromForm( event ) {
     postedUserData = new FormData( event.target ); 
     let updateUserPantry = {
         userID: currentUser.id,
-        ingredientID: parseFloat( postedUserData.get('ingredient-id') ), 
+        ingredientID: parseFloat( postedUserData.get('ingredientID') ), 
         ingredientModification: parseFloat( postedUserData.get('ingredient-amount') ), 
     };
     event.target.reset( );
@@ -343,6 +349,39 @@ function showPantry( e ) {
     if( e.target.innerText == 'View Your Pantry' ) {
         recipeContainer.innerText = ""
         currentUser.pantry.forEach( item => {
+            console.log('ITEM: ', item)
             recipeContainer.innerText +=` ${ ( item.amount ).toFixed( 2 ) } ${ item.name.name } \n \n `} )
     }
 }
+
+
+function displayIngredientsInDropDown(  ) {
+    // pantryClass = new Pantry( currentUser.pantry, ingredientList )
+    // pantryClass.getPantryItemsWithNames( currentUser.pantry, ingredientList )
+    let sortedIngredients = pantryClass.ingredientsList.sort( compare )
+    return sortedIngredients.find( ingredient => {
+        // console.log('INGREDIENT: ', ingredient)
+        pantryClass.currentUsersPantry.forEach( pantryItem => {
+            // console.log('PANTRYITEM: ', pantryItem)
+            // if( pantryItem.ingredient === ingredient.id) {
+                // pantryItem.ingredient = ingredient.id
+                ingredientsDropDownMenu.innerHTML += `<option name='ingredient' value="${ ingredient.id }">${ ingredient.name }</option>`
+            // }
+        } )
+
+    } );
+}
+
+function compare(a, b) {
+    // Use toUpperCase() to ignore character casing
+    const ingA = a.name.toUpperCase();
+    const ingB = b.name.toUpperCase();
+  
+    let comparison = 0;
+    if (ingA > ingB) {
+      comparison = 1;
+    } else if (ingA < ingB) {
+      comparison = -1;
+    }
+    return comparison;
+  }
