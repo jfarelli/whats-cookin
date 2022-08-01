@@ -10,7 +10,6 @@ import RecipeRepository from './classes/RecipeRepository';
 import MicroModal from 'micromodal';
 import Pantry from './classes/Pantry';
 
-
 // GLOBAL VARIABLES <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 let userList;
 let recipeList;
@@ -25,7 +24,6 @@ let matchingTagConditions = [ ];
 let matchingNameConditions = [ ];
 let savedTagCondits = [ ];
 let savedNameCondits = [ ];
-
 
 // QUERY SELECTORS / ELEMENTS BY ID <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 let h4 = document.querySelector( '.rec-name' );
@@ -86,6 +84,7 @@ searchInput.addEventListener("keypress", function(event) {
             document.getElementById("search").click();
   }
 });
+
 // DOM MANIPULATION <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 function loadData( ) {
     Promise.all( [ getData( 'users' ), getData( 'recipes' ), getData( 'ingredients' ) ] ).then( data => {
@@ -122,14 +121,11 @@ let postTripInputButton = document.querySelector( '.form-input-container' );
 
 function getUpdatedUserIngredientsFromPost( event ) {
     event.preventDefault( );
-    console.log('EVENT.TARGET: ', event.target)
-    displayIngredientsInDropDown(  );
     let updatedUser = getPostedUserDataFromForm( event );
     let postUserIngredients = postData( updatedUser );
     let fetchMeThatPromise = getData( 'users' );
         Promise.all( [ postUserIngredients, fetchMeThatPromise ] )
         .then( response => {
-            console.log('RESPONSE: ', response)
             pantryClass = new Pantry( response[ 1 ] );
         } )
         .then( getData('users').then(data => currentUser = data.find( userData => userData.id === currentUser.id)
@@ -354,26 +350,14 @@ function showPantry( e ) {
     }
 }
 
-
 function displayIngredientsInDropDown(  ) {
-    // pantryClass = new Pantry( currentUser.pantry, ingredientList )
-    // pantryClass.getPantryItemsWithNames( currentUser.pantry, ingredientList )
     let sortedIngredients = pantryClass.ingredientsList.sort( compare )
-    return sortedIngredients.find( ingredient => {
-        // console.log('INGREDIENT: ', ingredient)
-        pantryClass.currentUsersPantry.forEach( pantryItem => {
-            // console.log('PANTRYITEM: ', pantryItem)
-            // if( pantryItem.ingredient === ingredient.id) {
-                // pantryItem.ingredient = ingredient.id
-                ingredientsDropDownMenu.innerHTML += `<option name='ingredient' value="${ ingredient.id }">${ ingredient.name }</option>`
-            // }
+        sortedIngredients.forEach( ingredient => {
+                ingredientsDropDownMenu.innerHTML += `<option value="${ ingredient.id }">${ ingredient.name }</option>`
         } )
-
-    } );
 }
 
 function compare(a, b) {
-    // Use toUpperCase() to ignore character casing
     const ingA = a.name.toUpperCase();
     const ingB = b.name.toUpperCase();
   
@@ -384,4 +368,4 @@ function compare(a, b) {
       comparison = -1;
     }
     return comparison;
-  }
+}
