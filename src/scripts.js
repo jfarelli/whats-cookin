@@ -91,7 +91,7 @@ function loadData( ) {
         userList = data[ 0 ];
         recipeList = data[ 1 ];
         ingredientList = data[ 2 ];
-        currentUser = new User( userList[ Math.floor( Math.random( ) * userList.length ) ] );
+        currentUser = new User( userList[ Math.floor( Math.random( ) * userList.length ) ] )
         ingredientClass = new Ingredient( ingredientList.map(ingredient => ingredient.id), ingredientList.map(ingredient => ingredient.name ), ingredientList.map( ingredient =>  ingredient.estimatedCostInCents ) );
         recipeClass = new Recipe( recipeList, ingredientList );
         recipeRepository = new RecipeRepository( recipeList );
@@ -261,10 +261,11 @@ function displayRecipeInfo( e ){
                 let doIHaveEnoughIngredients = dish.ingredients.every( recipeIngredient => recipeIngredient.quantity.amount <= pantryObj[ recipeIngredient.id ] )
                 if( doIHaveEnoughIngredients ) {
                     letsCookButton.hidden = false;
+                    youNeedMorePrompt.innerText = "You have all the ingredients.  Let's cook!"
                     letsCookButton.addEventListener( 'click', ( ) => {
                         letsCookButton.hidden = true
 
-                        // youNeedMorePrompt.innerText += `Get more Ingredients to Cook this!`
+                        // youNeedMorePrompt.innerText = `Get more Ingredients to Cook this!`
                         
                         return currentUser.pantry.map( pantryItem => {
                             if( pantryItem.ingredient === recipeItem.id ) {
@@ -274,6 +275,7 @@ function displayRecipeInfo( e ){
                     } );
                 } else {
                     letsCookButton.hidden = true;
+                    youNeedMorePrompt.innerText = `Get more Ingredients to Cook this!`
                 }
                 if( !pantryObj[ recipeItem.id ]){
                     ingredientText.innerText += 
