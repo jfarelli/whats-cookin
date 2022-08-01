@@ -1,6 +1,6 @@
 # What's Cooking?
 ​
-## Part One
+## Part One & Two
 ​
 ### Table of contents
 * [Setting Up](#setup)
